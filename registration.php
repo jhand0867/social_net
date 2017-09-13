@@ -9,10 +9,20 @@ require 'includes/form_handlers/login_handler.php';
 	<title>Welcome To ...</title>
     <link rel="stylesheet" type="text/css" href="assets/css/register_style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/register.js"></script>
+    <script src="assets/js/register.js"></script>
 </head>
 <body>
-
+<?php
+    if(isset($_POST['reg_button']))
+    {
+        echo '<script type="text/javascript">
+         $(document).ready(function(){
+            $("#first").hide();
+            $("#second").show();
+         });
+        </script>';
+    }
+?>
     <div class="wrapper">
         <div class="login_box">
             <div class="login_header">
