@@ -61,5 +61,44 @@ body{
 	margin-top: 0px;
 	margin-bottom: 0px;
 	color: #000000;
-	text-shadow: #ffff00 0.5px 0.5px 0px;
+	text-shadow: #fff 0.5px 0.5px 0px;
+}
+
+input[type='submit']{
+	background-color: #0daae6;
+	border: 1px solid #0daae6;
+	border-radius: 3px;
+	margin: 5px 0px 5px 0px;
+	padding: 5px 10px 5px 10px;
+	font-family: 'Bellota-BoldItalic', sans-serif;
+	color: #000000;
+	font-size: 105%;
+	text-shadow: #fff 0.5px 0.5px 0px;
+
+}
+
+input[type="text"],input[type="email"],input[type="password"]{
+	margin-top: 5x;
+	border: 1px solid #e5e5e5;
+	width: 70%;
+	height: 35px;
+	margin-bottom: 10px;
+	padding-left: 5px;
+}
+
+input[type="text"]:hover,input[type="email"]:hover,input[type="password"]:hover{
+	border-color: #0daae6;
+}
+
+a{
+	text-decoration: none;
+	color: #0daae6;
+}
+
+#second{
+	display: none;
+}
+
+#first{
+
 }
