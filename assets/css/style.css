@@ -68,5 +68,36 @@ nav a:hover {
 
 .column{
 	background-color: #fff;
+	padding: 5px;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px #1e3348;
+	z-index: -1;
+}
+
+.user_details{
+	width: 250px;
+	float: left;
+	margin-bottom: 20px;
+	font-size: 15;
+}
+
+.user_details_left_right{
+	width: 125px;
+	display: inline-block;
+	position: absolute;
+}
+
+.user_details img{
+	height: 125px;
+	border-radius: 5px;
+	margin-right: 5px;
+}
+
+.main_column{
+	width: 780px;
+    height: 1000px;
+    position: relative;
+    float: right;
 
 }
