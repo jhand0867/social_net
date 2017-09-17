@@ -27,7 +27,7 @@ else
 			<a href="index.php">Social Net</a>
 		</div>
 		<nav>
-			<a href="#">
+			<a href="<? echo $user['first_name']; ?>">
 				<? echo $user['first_name'] ?>
 			</a>
 			<a href="index.php"><i class="fa fa-home fa-lg" aria-hidden="true"></i></a>

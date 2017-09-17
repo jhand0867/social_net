@@ -95,9 +95,58 @@ nav a:hover {
 }
 
 .main_column{
-	width: 780px;
-    height: 1000px;
-    position: relative;
+	width: 75%;
+    min-height: 200px;
     float: right;
+    z-index: -1;
+}
 
+.post_form{
+	width: 100%
+}
+
+.post_form textarea{
+	width: 100%;
+	height: 60px;
+	border-radius: 5px;
+	margin-right: 5px;
+	border: 1px solid #d3d3d3;
+	font-size: 12px;
+
+}
+
+.post_text{
+	width: 85%;
+	height: 60px;
+	border-radius: 5px;
+	margin-right: 5px;
+	margin-top: 0px;
+	border: 1px solid #d3d3d3;
+	font-size: 12;
+	padding: 5px;
+}
+
+textarea: focus{
+	outline: 0;
+}
+
+.post_button {
+	width: 10%;
+    height: 59px;
+    border: none;
+    border-radius: 5px;
+    /* margin-top: 4px; */
+    background-color: #0daae6;
+    font-family: 'Bellota-BoldItalic', sans-serif;
+    color: #fff;
+    box-shadow: 2px 2px 2px #1e3348;
+    position: absolute;
+    outline: 0;
+    margin: 0;
+}
+
+.post_button:active{
+	padding: 5px 4px 4px 5px;
+	color: #000;
+	background-color: #2980b4;
 }
