@@ -9,15 +9,17 @@ class Post
 
 	public function __construct($conn , $user)
 	{
+		echo "create Post obj <br>";
 		$this->conn = $conn;
-		$this->$user_obj = new User( $conn , $user );
+		$this->user_obj = new User( $conn , $user );
 	}
 
 	public function submitPost($body , $user_to)
 	{
+		echo "submitPost<br>";
 		// safe text
 		$post_body = strip_tags($body); 
-		$post_body = mysql_real_escape_string( $this->conn , $post_body );
+		$post_body = mysqli_real_escape_string( $this->conn , $post_body );
 		$check_empty = preg_replace( '/\s+/' , '' , $post_body );
 
 		if($check_empty != "")
@@ -42,7 +44,7 @@ class Post
 
 
 			// adjust user's posts count
-			$this->user_obj->increaseNumPosts();
+			$this->user_obj->increaseNumPost();
 
 			
 
