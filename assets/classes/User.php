@@ -13,6 +13,7 @@ class User
 		$this->conn = $conn;
 		$user_details_qry = mysqli_query($conn, "SELECT * FROM soc_users WHERE username = '$user'");
 		$this->$user = mysqli_fetch_array($user_details_qry);
+		
 	}
 
 	public function getUsername()
