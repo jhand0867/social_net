@@ -9,30 +9,33 @@ class User
 
 	public function __construct($conn , $user)
 	{
-		echo "creae User obj <br>";
 		$this->conn = $conn;
 		$user_details_qry = mysqli_query($conn, "SELECT * FROM soc_users WHERE username = '$user'");
-		$this->$user = mysqli_fetch_array($user_details_qry);
-		
+		$this->user = mysqli_fetch_array($user_details_qry);
+
 	}
 
 	public function getUsername()
 	{
-		echo "getUserName <br>";
 		return $this->user['username'];
 	}
 
 	public function getNumPosts()
 	{
-		echo "getNumPosts <br>";
 		return $this->user['num_post'];
 	}
 
 	public function increaseNumPost()
 	{
-		echo "increase <br>";
-		$num_posts = $this->user['num_posts']++;
-		$update_num_post = mysqli_query($this->conn, "UPDATE soc_users SET num_post = '$num_posts'");
+		$num_posts = $this->user['num_posts']+ 1;
+		$username = $this->user['username'];
+
+		// UPDATE soc_users set `num_posts`=0
+
+		$update_num_post = mysqli_query($this->conn, 
+			"UPDATE soc_users 
+			SET num_posts = $num_posts 
+			WHERE username = '$username'");
 	}
 
 
@@ -41,6 +44,37 @@ class User
 		$username = $this->user['username'];
 		$firstAndLastName = $this->user['first_name'] . " " . $this->user['last_name'];
 		return $firstAndLastName;
+	}
+
+	public function getFirstName()
+	{
+		return $this->user['first_name'];
+	}
+
+	public function getLastName()
+	{
+		return $this->user['last_name'];
+	}
+
+	public function isAccountClosed()
+	{
+		$accountClosed = false;
+
+		if ($this->user['user_closed'] == "yes")
+		{
+			$accountClosed = true;
+		}
+		else
+		{
+			$accountClosed = false;
+		}
+
+		return $accountClosed;
+	}
+
+	public function getPic()
+	{
+		return $this->user['profile_pic'];
 	}
 }
 

@@ -105,15 +105,15 @@ nav a:hover {
 	width: 100%
 }
 
-.post_form textarea{
-	width: 100%;
+/*.post_form textarea{
+	width: 80%; 
 	height: 60px;
 	border-radius: 5px;
 	margin-right: 5px;
 	border: 1px solid #d3d3d3;
 	font-size: 12px;
 
-}
+} */
 
 .post_text{
 	width: 85%;
@@ -149,4 +149,30 @@ textarea: focus{
 	padding: 5px 4px 4px 5px;
 	color: #000;
 	background-color: #2980b4;
+}
+
+.status_post {
+	background-color: #fff;
+	width: 93%;
+	min-height: 75px;
+	font-size: 15;
+	padding: 0px 5px;
+
+}
+
+.post_body{
+	height: 200px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.post_profile_pic {
+	float: left;
+	border-radius: 5px;
+    border-color: #dc1919;
+    margin-right: 7px;
+}
+
+.post_profile_pic img{
+	border-radius: 5px;
 }
