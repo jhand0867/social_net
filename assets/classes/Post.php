@@ -43,9 +43,7 @@ class Post
 
 			// adjust user's posts count
 			$this->user_obj->increaseNumPost();
-
-			
-
+	
 		}
 	}
 
@@ -101,140 +99,169 @@ class Post
 					continue;
 				}
 
-				if ( $num_iterations++ < $start )
+				// is post from friends or self
+
+
+				if ( $this->user_obj->isFriend($added_by) )
 				{
-					continue;
-				}
-
-				// set limit posts already loaded?
-
-				if ( $count > $limit )
-				{
-					break;					
-				}
-				else
-				{
-					$count++;
-				}
-
-
-				// not closed, get some info for who's posting
-
-				$added_by_full_name = $added_by_obj->getFirstAndLastName();
-				$added_by_name = $added_by_obj->getFirstName();
-				$added_by_pic = $added_by_obj->getPic();
-
-				// time since last post
-
-				$date_time_now = date("Y-m-d H:i:s");
-
-				$start_date = new DateTime($date_time);
-				$end_date = new DateTime($date_time_now);
-				$interval = $start_date->diff($end_date);
-
-				if ( $interval->y >= 1 )
-				{
-					if ( $interval->y == 1 )
+					if ( $num_iterations++ < $start )
 					{
-						$time_message = $interval-y . " year ago";
+						continue;
+					}
+
+					// set limit posts already loaded?
+
+					if ( $count > $limit )
+					{
+						break;					
 					}
 					else
 					{
-						$time_message = $interval-y . " years ago";
-					}
-				}
-				else if ( $interval->m >= 1 )
-				{
-					if ( $interval->d == 0 )
-					{
-						$days = $interval->d . " ago";
-					}
-					else if ( $interval->d == 1)
-					{
-						$days =  $interval->d . " day ago";
-					}
-					else
-					{
-						$days =  $interval->d . " days ago";
+						$count++;
 					}
 
-					if ( $interval->m == 1 )
-					{
-						$time_message = $interval->m . " month" . $days;
-					}
-					else
-					{
-						$time_message = $interval->m . " months" . $days;	
-					}
-				}
 
-				else if ($interval->d >= 1)
-				{
-					if ( $interval->d == 1)
-					{
-						$time_message = " yesterday";
-					}
-					else
-					{
-						$time_message =  $interval->d . " days ago";
-					}
-				}
+					// not closed, get some info for who's posting
 
-				else if ($interval->h >= 1 )
-				{
-					if ( $interval->h == 1)
-					{
-						$time_message = $interval->h . " hour ago";
-					}
-					else
-					{
-						$time_message =  $interval->h . " hours ago";
-					}
-				}
+					$added_by_full_name = $added_by_obj->getFirstAndLastName();
+					$added_by_name = $added_by_obj->getFirstName();
+					$added_by_pic = $added_by_obj->getPic();
 
-				else if ($interval->i >= 1 )
-				{
-					if ( $interval->i == 1)
-					{
-						$time_message = $interval->i . " minute ago";
-					}
-					else
-					{
-						$time_message =  $interval->i . " minutes ago";
-					}
-				}
+					?>
 
-				else 
-				{
-					if ($interval->s < 30 )
-					{
+					<script>
 
-						$time_message = " Just now";
-					}
-					else
+					function toggle<?php echo $id; ?>()
 					{
-						$time_message =  $interval->s . " seconds ago";
-					}
-				}
+						element = document.getElementById("toggleComment<?php echo $id;?>");
 
-				// build the post
-				
-				$str .= "<div class='status_post'>
-							<div class='post_profile_pic'>
-								<img src='$added_by_pic' width='50'>
+						if (element.style.display == "block")
+							element.style.display = "none";
+						else
+							element.style.display = "block";			
+					}
+
+
+					</script>
+
+					<?
+
+					// time since last post
+
+					$date_time_now = date("Y-m-d H:i:s");
+
+					$start_date = new DateTime($date_time);
+					$end_date = new DateTime($date_time_now);
+					$interval = $start_date->diff($end_date);
+
+					if ( $interval->y >= 1 )
+					{
+						if ( $interval->y == 1 )
+						{
+							$time_message = $interval-y . " year ago";
+						}
+						else
+						{
+							$time_message = $interval-y . " years ago";
+						}
+					}
+					else if ( $interval->m >= 1 )
+					{
+						if ( $interval->d == 0 )
+						{
+							$days = $interval->d . " ago";
+						}
+						else if ( $interval->d == 1)
+						{
+							$days =  $interval->d . " day ago";
+						}
+						else
+						{
+							$days =  $interval->d . " days ago";
+						}
+
+						if ( $interval->m == 1 )
+						{
+							$time_message = $interval->m . " month" . $days;
+						}
+						else
+						{
+							$time_message = $interval->m . " months" . $days;	
+						}
+					}
+
+					else if ($interval->d >= 1)
+					{
+						if ( $interval->d == 1)
+						{
+							$time_message = " yesterday";
+						}
+						else
+						{
+							$time_message =  $interval->d . " days ago";
+						}
+					}
+
+					else if ($interval->h >= 1 )
+					{
+						if ( $interval->h == 1)
+						{
+							$time_message = $interval->h . " hour ago";
+						}
+						else
+						{
+							$time_message =  $interval->h . " hours ago";
+						}
+					}
+
+					else if ($interval->i >= 1 )
+					{
+						if ( $interval->i == 1)
+						{
+							$time_message = $interval->i . " minute ago";
+						}
+						else
+						{
+							$time_message =  $interval->i . " minutes ago";
+						}
+					}
+
+					else 
+					{
+						if ($interval->s < 30 )
+						{
+
+							$time_message = " Just now";
+						}
+						else
+						{
+							$time_message =  $interval->s . " seconds ago";
+						}
+					}
+
+					// build the post
+					
+					$str .= "<div class='status_post' onClick='javascript:toggle$id()'>
+								<div class='post_profile_pic'>
+									<img src='$added_by_pic' width='50'>
+								</div>
+
+								<div class='posted_by' style='color:ACACAC;'>
+									<a href='$added_by_name'>$added_by_full_name</a> 
+									$user_to &nbsp;&nbsp;&nbsp;$time_message 
+								</div>
+
+								<div id='post_body' >
+									$body<br>
+								</div>
 							</div>
 
-							<div class='posted_by' style='color:ACACAC;'>
-								<a href='$added_by_name'>$added_by_full_name</a> 
-								$user_to &nbsp;&nbsp;&nbsp;$time_message 
+							<div class='post_comment' id='toggleComment$id' style='display:none;'>	
+								<iframe src='comment_frame.php?post_id=$id' id='comment_iframe'></iframe>
 							</div>
-
-							<div id='post_body' >
-								$body<br>
-							</div>
-						</div>
-						<hr>";
-			}
+							<hr>";
+				}
+			} // while ends here
 
 			// more posts to be loaded
 			if ( $count > $limit )
@@ -257,4 +284,4 @@ class Post
 	}
 }
 
- ?>
+?>

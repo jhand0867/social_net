@@ -76,6 +76,25 @@ class User
 	{
 		return $this->user['profile_pic'];
 	}
+
+	public function isFriend($username_to_check)
+	{
+		$match_username = "," . $username_to_check . ",";
+		
+		// find if the user is in the array
+		if( ( strstr($this->user['friends_array'], $match_username ) ) || 
+			$match_username == $this->user['username'])
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+
+
+	}
 }
 
  ?>

@@ -88,8 +88,6 @@ if(isset($_POST['post_button']))
 				var scroll_top = $(this).scrollTop();
 				var page = $('.posts_area').find('.next_page').val();
 				var noMorePosts = $('.posts_area').find('.no_more_posts').val();
-					console.log('page= ' + page );
-					console.log('noMorePosts=' + noMorePosts );
 
 				if ( (document.body.scrollHeight >= document.body.scrollTop + window.innerHeight) 
 					&& noMorePosts == 'false' ) {
@@ -97,9 +95,6 @@ if(isset($_POST['post_button']))
 					$('#loading').show();
 
 					
-					console.log('page= ' + page );
-					console.log('noMorePosts=' + noMorePosts );
-
 					var ajaxReq = $.ajax({
 						url: 'includes/ajax_load_posts.php',
 						type: 'POST',
