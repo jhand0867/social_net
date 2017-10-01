@@ -1,6 +1,6 @@
 <?php 
-// Post.ph
-// Logic
+// Post.php
+require "Utils.php";
 
 class Post
 {
@@ -16,8 +16,10 @@ class Post
 	public function submitPost($body , $user_to)
 	{
 		// safe text
-		$post_body = strip_tags($body); 
-		$post_body = mysqli_real_escape_string( $this->conn , $post_body );
+		$utils = new Utils();
+
+		$post_body = $utils->stringSafe($this->conn, $post_body);
+		//$post_body = mysqli_real_escape_string( $this->conn , $post_body );
 		$check_empty = preg_replace( '/\s+/' , '' , $post_body );
 
 		if($check_empty != "")
@@ -76,6 +78,8 @@ class Post
 				$added_by = $row['post_added_by'];
 				$date_time = $row['post_date'];
 
+				// echo $date_time;
+
 				// is it self posted? ... or do I need to get user name
 
 				if($row['post_user_to'] == "none")
@@ -99,7 +103,7 @@ class Post
 					continue;
 				}
 
-				// is post from friends or self
+				// is post from friends?
 
 
 				if ( $this->user_obj->isFriend($added_by) )
@@ -148,96 +152,9 @@ class Post
 
 					// time since last post
 
-					$date_time_now = date("Y-m-d H:i:s");
+					$utils = new Utils();
 
-					$start_date = new DateTime($date_time);
-					$end_date = new DateTime($date_time_now);
-					$interval = $start_date->diff($end_date);
-
-					if ( $interval->y >= 1 )
-					{
-						if ( $interval->y == 1 )
-						{
-							$time_message = $interval-y . " year ago";
-						}
-						else
-						{
-							$time_message = $interval-y . " years ago";
-						}
-					}
-					else if ( $interval->m >= 1 )
-					{
-						if ( $interval->d == 0 )
-						{
-							$days = $interval->d . " ago";
-						}
-						else if ( $interval->d == 1)
-						{
-							$days =  $interval->d . " day ago";
-						}
-						else
-						{
-							$days =  $interval->d . " days ago";
-						}
-
-						if ( $interval->m == 1 )
-						{
-							$time_message = $interval->m . " month" . $days;
-						}
-						else
-						{
-							$time_message = $interval->m . " months" . $days;	
-						}
-					}
-
-					else if ($interval->d >= 1)
-					{
-						if ( $interval->d == 1)
-						{
-							$time_message = " yesterday";
-						}
-						else
-						{
-							$time_message =  $interval->d . " days ago";
-						}
-					}
-
-					else if ($interval->h >= 1 )
-					{
-						if ( $interval->h == 1)
-						{
-							$time_message = $interval->h . " hour ago";
-						}
-						else
-						{
-							$time_message =  $interval->h . " hours ago";
-						}
-					}
-
-					else if ($interval->i >= 1 )
-					{
-						if ( $interval->i == 1)
-						{
-							$time_message = $interval->i . " minute ago";
-						}
-						else
-						{
-							$time_message =  $interval->i . " minutes ago";
-						}
-					}
-
-					else 
-					{
-						if ($interval->s < 30 )
-						{
-
-							$time_message = " Just now";
-						}
-						else
-						{
-							$time_message =  $interval->s . " seconds ago";
-						}
-					}
+					$time_message = $utils->postInterval( $date_time );
 
 					// build the post
 					

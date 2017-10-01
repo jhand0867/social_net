@@ -6,9 +6,10 @@
 </head>
 <body>
 <?php 
-require "config/config.php";
+require 'config/config.php';
 require 'assets/classes/User.php';
 require 'assets/classes/Post.php';
+require_once 'assets/classes/Utils.php';
 
 /* Create a trace file in '/tmp/client.trace' on the local (client) machine: */
 //mysqli_debug("d:t:0,/tmp/client.trace");
@@ -16,7 +17,10 @@ require 'assets/classes/Post.php';
 if (isset($_SESSION['username']))
 {
 	$loggedUsername = $_SESSION['username'];
-	$userDetails = mysqli_query($con , "SELECT * FROM soc_users WHERE username='$loggedUsername'");
+	$userDetails = mysqli_query($con , 
+		"SELECT * 
+		 FROM soc_users 
+		 WHERE username='$loggedUsername'");
 	$user = mysqli_fetch_array($userDetails);
 }
 else
@@ -58,7 +62,11 @@ else
 		if ( isset( $_POST['postComment' . $post_id] ))
 		{
 			$post_body = $_POST['post_body'];
-			$post_body = mysqli_escape_string($con , $post_body);
+			
+			$utils = new Utils();
+
+			$post_body = $utils->stringSafe($con, $post_body);
+			//$post_body = mysqli_escape_string($con , $post_body);
 			$date_time_now = date("Y-m-d H:i:s");
 
 			// add comment to table
@@ -114,101 +122,34 @@ else
 
 			// time since last post
 
-			$date_time_now = date("Y-m-d H:i:s");
+			$utils = new Utils();
 
-			$start_date = new DateTime($comment_date);
-			$end_date = new DateTime($date_time_now);
-			$interval = $start_date->diff($end_date);
-
-			if ( $interval->y >= 1 )
-			{
-				if ( $interval->y == 1 )
-				{
-					$time_message = $interval-y . " year ago";
-				}
-				else
-				{
-					$time_message = $interval-y . " years ago";
-				}
-			}
-			else if ( $interval->m >= 1 )
-			{
-				if ( $interval->d == 0 )
-				{
-					$days = $interval->d . " ago";
-				}
-				else if ( $interval->d == 1)
-				{
-					$days =  $interval->d . " day ago";
-				}
-				else
-				{
-					$days =  $interval->d . " days ago";
-				}
-
-				if ( $interval->m == 1 )
-				{
-					$time_message = $interval->m . " month" . $days;
-				}
-				else
-				{
-					$time_message = $interval->m . " months" . $days;	
-				}
-			}
-
-			else if ($interval->d >= 1)
-			{
-				if ( $interval->d == 1)
-				{
-					$time_message = " yesterday";
-				}
-				else
-				{
-					$time_message =  $interval->d . " days ago";
-				}
-			}
-
-			else if ($interval->h >= 1 )
-			{
-				if ( $interval->h == 1)
-				{
-					$time_message = $interval->h . " hour ago";
-				}
-				else
-				{
-					$time_message =  $interval->h . " hours ago";
-				}
-			}
-
-			else if ($interval->i >= 1 )
-			{
-				if ( $interval->i == 1)
-				{
-					$time_message = $interval->i . " minute ago";
-				}
-				else
-				{
-					$time_message =  $interval->i . " minutes ago";
-				}
-			}
-
-			else 
-			{
-				if ($interval->s < 30 )
-				{
-
-					$time_message = " Just now";
-				}
-				else
-				{
-					$time_message =  $interval->s . " seconds ago";
-				}
-			}
+			$time_message = $utils->postInterval( $comment_date );
 
 			$user_obj = new User( $con , $comment_by );
 
 			//echo $user_obj
 
+			?>
+
+			<div class="comment_section">
+	
+				<!-- display picture -->
+				<a href=" <?php echo $user_obj->getFirstName(); ?> " 
+					target="_parent"> 
+					<img src=" <?php echo $user_obj->getPic(); ?>"
+					     title=" <?php echo $comment_by; ?> "
+					     style="float:left" 
+					     height="30">  
+				</a>
+				<a href=" <?php echo $user_obj->getFirstName(); ?> " 
+				   target="_parent"> <b> <?php echo $user_obj->getFirstAndLastName(); ?> </b>
+				</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<? echo $time_message ?> <br> <? echo $comment_body ?>   
+				
+				<hr>
+			</div>
+<?
 		} // end of while
 
 	}
@@ -217,27 +158,7 @@ else
 // 
 ?>
 
-<div class="comment_section">
-	
-	<!-- display picture -->
-	<a href=" <?php echo $user_obj->getFirstName(); ?> " 
-		target="_parent"> 
-		<img src=" <?php echo $user_obj->getPic(); ?>"
-		     title=" <?php echo $comment_by; ?> "
-		     style="float:left" 
-		     height="30">  
-	</a>
 
-	<a href=" <?php echo $user_obj->getFirstName(); ?> " 
-	   target="_parent"> <b> <?php echo $user_obj->getFirstAndLastName(); ?> </b>
-	</a>
-	&nbsp;&nbsp;&nbsp;&nbsp;<? echo $time_message ?> <br> <? echo $comment_body ?>   
-	
-	
-	<hr>
-
-
-</div>
 
 
 

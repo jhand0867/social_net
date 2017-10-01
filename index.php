@@ -3,6 +3,7 @@
 // index.php
 
 require 'includes/header.php';
+//require 'includes/global_utils.php';
 require 'includes/chromephp/ChromePhp.php';
 require 'assets/classes/User.php';
 require 'assets/classes/Post.php';

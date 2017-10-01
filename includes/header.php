@@ -1,5 +1,6 @@
 <?php 
 require "config/config.php";
+// require "includes/global_utils.php";
 /* Create a trace file in '/tmp/client.trace' on the local (client) machine: */
 mysqli_debug("d:t:0,/tmp/client.trace");
 	
