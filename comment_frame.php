@@ -83,12 +83,161 @@ else
 <form action="comment_frame.php?post_id=<?echo $post_id; ?>" 
 	method="POST" name="postComment<?echo $post_id ?>" id="comment_form">
 
-	<textarea name="post_body"></textarea>
-	<input type="submit" name="postComment<?echo $post_id ?>" value="Post" >
+	<textarea class="comment_body" name="post_body"></textarea>
+	<input type="submit" class="comment_submit" name="postComment<?echo $post_id ?>" value="Post" >
 
 </form>
 
 <!-- load comments -->
+
+<?php 
+
+	$getComments = mysqli_query( $con , 
+		"SELECT * 
+		 FROM soc_comments 
+		 WHERE comment_to_post_id ='$post_id' 
+		 ORDER BY id ASC" );
+
+	$count = mysqli_num_rows( $getComments );
+
+	if ( $count != 0 )
+	{
+		while ($row = mysqli_fetch_array( $getComments ) )
+		{
+
+			$comment_body = $row['comment_body'];
+			$comment_to = $row['comment_to'];
+			$comment_by = $row['comment_by'];
+			$comment_date = $row['comment_date'];
+			$comment_removed = $row['comment_removed'];
+			$comment_to_post_id = $row['comment_to_post_id'];
+
+			// time since last post
+
+			$date_time_now = date("Y-m-d H:i:s");
+
+			$start_date = new DateTime($comment_date);
+			$end_date = new DateTime($date_time_now);
+			$interval = $start_date->diff($end_date);
+
+			if ( $interval->y >= 1 )
+			{
+				if ( $interval->y == 1 )
+				{
+					$time_message = $interval-y . " year ago";
+				}
+				else
+				{
+					$time_message = $interval-y . " years ago";
+				}
+			}
+			else if ( $interval->m >= 1 )
+			{
+				if ( $interval->d == 0 )
+				{
+					$days = $interval->d . " ago";
+				}
+				else if ( $interval->d == 1)
+				{
+					$days =  $interval->d . " day ago";
+				}
+				else
+				{
+					$days =  $interval->d . " days ago";
+				}
+
+				if ( $interval->m == 1 )
+				{
+					$time_message = $interval->m . " month" . $days;
+				}
+				else
+				{
+					$time_message = $interval->m . " months" . $days;	
+				}
+			}
+
+			else if ($interval->d >= 1)
+			{
+				if ( $interval->d == 1)
+				{
+					$time_message = " yesterday";
+				}
+				else
+				{
+					$time_message =  $interval->d . " days ago";
+				}
+			}
+
+			else if ($interval->h >= 1 )
+			{
+				if ( $interval->h == 1)
+				{
+					$time_message = $interval->h . " hour ago";
+				}
+				else
+				{
+					$time_message =  $interval->h . " hours ago";
+				}
+			}
+
+			else if ($interval->i >= 1 )
+			{
+				if ( $interval->i == 1)
+				{
+					$time_message = $interval->i . " minute ago";
+				}
+				else
+				{
+					$time_message =  $interval->i . " minutes ago";
+				}
+			}
+
+			else 
+			{
+				if ($interval->s < 30 )
+				{
+
+					$time_message = " Just now";
+				}
+				else
+				{
+					$time_message =  $interval->s . " seconds ago";
+				}
+			}
+
+			$user_obj = new User( $con , $comment_by );
+
+			//echo $user_obj
+
+		} // end of while
+
+	}
+
+// assets/images/profile_pics/defaults/head_emerald.png
+// 
+?>
+
+<div class="comment_section">
+	
+	<!-- display picture -->
+	<a href=" <?php echo $user_obj->getFirstName(); ?> " 
+		target="_parent"> 
+		<img src=" <?php echo $user_obj->getPic(); ?>"
+		     title=" <?php echo $comment_by; ?> "
+		     style="float:left" 
+		     height="30">  
+	</a>
+
+	<a href=" <?php echo $user_obj->getFirstName(); ?> " 
+	   target="_parent"> <b> <?php echo $user_obj->getFirstAndLastName(); ?> </b>
+	</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;<? echo $time_message ?> <br> <? echo $comment_body ?>   
+	
+	
+	<hr>
+
+
+</div>
 
 
 
