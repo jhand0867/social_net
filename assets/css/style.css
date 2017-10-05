@@ -176,3 +176,47 @@ textarea: focus{
 .post_profile_pic img{
 	border-radius: 5px;
 }
+
+.comment_section {
+	padding: 0 5px 5px 5px;
+}
+
+.comment_section img {
+	margin: 0 3px 3px 3px;
+}
+
+#comment_iframe {	
+	max-height: 250px;
+	width: 100%;
+	margin-top: 5px;
+}
+
+#comment_form textarea  {
+	width: 85%;
+	height: 35px;
+	border-radius: 5px;
+	color: #616060;
+	font-size: 14px;
+	margin: 3px 3px 3px 5px;
+}
+
+#comment_form input[type="submit"] {
+	border: none;
+    background-color: #0daae6;
+    font-family: 'Bellota-BoldItalic', sans-serif;
+    color: #fff;
+    box-shadow: 2px 2px 2px #1e3348;
+    border-radius: 5px;
+    width: 13%;
+    height: 35px;
+    margin-top: 3px;
+    position: absolute;
+}
+
+.newsfeedPostOptions {
+	padding: 0px;
+	text-decoration: none;
+	color: #007bff;
+	border: none;
+
+}

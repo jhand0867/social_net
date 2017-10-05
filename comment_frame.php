@@ -2,6 +2,13 @@
 <head>
 	<title>Comment Frame</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<style type="text/css">
+		* {
+			font-family: arial, sans-serif;
+			font-size:14;
+		} 
+
+	</style>
 
 </head>
 <body>
@@ -108,7 +115,7 @@ else
 
 	$count = mysqli_num_rows( $getComments );
 
-	if ( $count != 0 )
+	if ( $count != 0 ) // any comments to show?
 	{
 		while ($row = mysqli_fetch_array( $getComments ) )
 		{
@@ -152,6 +159,10 @@ else
 <?
 		} // end of while
 
+	}
+	else
+	{
+		echo "<center><br><br>No comments to show!</center>";
 	}
 
 // assets/images/profile_pics/defaults/head_emerald.png

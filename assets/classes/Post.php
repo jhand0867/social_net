@@ -137,18 +137,30 @@ class Post
 
 					function toggle<?php echo $id; ?>()
 					{
-						element = document.getElementById("toggleComment<?php echo $id;?>");
+						var target = $(event.target);
+						if(!target.is("a"))
+						{
+							element = document.getElementById("toggleComment<?php echo $id;?>");
 
-						if (element.style.display == "block")
-							element.style.display = "none";
-						else
-							element.style.display = "block";			
+							if (element.style.display == "block")
+								element.style.display = "none";
+							else
+								element.style.display = "block";				
+						}
 					}
 
 
 					</script>
 
 					<?
+
+					// how many comments ?
+					$comments_check = mysqli_query( $this->conn,
+						"SELECT * 
+						 FROM soc_comments
+						 WHERE comment_to_post_id = '$id'" );
+					$comments_check_count = mysqli_num_rows($comments_check);
+
 
 					// time since last post
 
@@ -169,7 +181,11 @@ class Post
 								</div>
 
 								<div id='post_body' >
-									$body<br>
+									$body<br><br><br>
+								</div>
+
+								<div class='newsfeedPostOptions'>
+									Comments($comments_check_count)&nbsp;&nbsp;&nbsp;
 								</div>
 							</div>
 
