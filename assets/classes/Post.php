@@ -49,7 +49,7 @@ class Post
 		}
 	}
 
-	public function loadPostsFriends($data , $limit)
+	public function loadPostsFriends( $data , $limit )
 	{
 		$page = $data['page'];
 		$userLoggedIn = $this->user_obj->getUsername();
@@ -186,6 +186,7 @@ class Post
 
 								<div class='newsfeedPostOptions'>
 									Comments($comments_check_count)&nbsp;&nbsp;&nbsp;
+									<iframe src='like.php?post_id=$id'></iframe>
 								</div>
 							</div>
 
@@ -215,6 +216,45 @@ class Post
 
 		}
 	}
+
+	public function increaseLikes( $post_id )
+	{
+		// update the number of likes in a post
+
+		$find_post = mysqli_query( $this->conn , 
+			"SELECT post_likes 
+			 FROM soc_posts
+			 WHERE id = '$post_id'");
+
+		$row = mysqli_fetch_array($find_post);
+		$post_likes = $row['post_likes'];
+		$post_likes ++;
+
+		$post_update = mysqli_query( $this->conn , 
+			"UPDATE soc_posts 
+			SET post_likes = $post_likes 
+			WHERE id = '$post_id'");
+		
+	}
+
+	public function decreaseLikes( $post_id )
+	{
+		// update the number of likes in a post
+
+		$find_post = mysqli_query( $this->conn , 
+			"SELECT post_likes 
+			 FROM soc_posts
+			 WHERE id = '$post_id'");
+
+		$row = mysqli_fetch_array($find_post);
+		$post_likes = $row['post_likes'];
+		$post_likes --;
+
+		$post_update = mysqli_query( $this->conn , 
+			"UPDATE soc_posts 
+			SET post_likes = $post_likes 
+			WHERE id = '$post_id'");
+	}	
 }
 
 ?>

@@ -38,6 +38,27 @@ class User
 			WHERE username = '$username'");
 	}
 
+	public function increaseLikes()
+	{
+		$num_likes = $this->user['num_likes']+ 1;
+		$username = $this->user['username'];
+
+		$update_num_post = mysqli_query($this->conn, 
+			"UPDATE soc_users 
+			SET num_likes = $num_likes 
+			WHERE username = '$username'");
+	}
+
+	public function decreaseLikes()
+	{
+		$num_likes = $this->user['num_likes']- 1;
+		$username = $this->user['username'];
+
+		$update_num_post = mysqli_query($this->conn, 
+			"UPDATE soc_users 
+			SET num_likes = $num_likes 
+			WHERE username = '$username'");
+	}
 
 	public function getFirstAndLastName()
 	{

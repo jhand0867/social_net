@@ -52,7 +52,15 @@ $liked_by = $row['post_added_by'];
 
 $user_liked = new User( $con , $liked_by );
 
-// like button
+// like button handler
+if ( isset($_POST['like_button'] ) )
+{
+	$total_likes++;
+	$user_liked->increaseLikes();
+	$post = new Post( $con , $loggedUsername );
+	$post->increaseLikes( $post_id );
+
+}
 
 // unlike button
 
