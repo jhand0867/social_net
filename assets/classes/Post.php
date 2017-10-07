@@ -217,7 +217,7 @@ class Post
 		}
 	}
 
-	public function increaseLikes( $post_id )
+	public function increaseLikes( $post_id, $username )
 	{
 		// update the number of likes in a post
 
@@ -234,10 +234,19 @@ class Post
 			"UPDATE soc_posts 
 			SET post_likes = $post_likes 
 			WHERE id = '$post_id'");
+
+		// udpate likes
+
+		$like_date = date("Y-m-d H-i-s"); // post date and time
+
+		$insert_like = mysqli_query( $this->conn, 
+			"INSERT INTO soc_likes(id,like_username,like_to_post_id,like_date)
+			VALUES ('' , '$username' , '$post_id', '$like_date')");
+			$returned_id = mysqli_insert_id($this->conn);
 		
 	}
 
-	public function decreaseLikes( $post_id )
+	public function decreaseLikes( $post_id, $username )
 	{
 		// update the number of likes in a post
 
@@ -252,8 +261,16 @@ class Post
 
 		$post_update = mysqli_query( $this->conn , 
 			"UPDATE soc_posts 
-			SET post_likes = $post_likes 
-			WHERE id = '$post_id'");
+			 SET post_likes = $post_likes 
+			 WHERE id = '$post_id'");
+
+		// get rid off the like
+
+		$insert_like = mysqli_query( $this->conn, 
+			"DELETE 
+			 FROM soc_likes
+			 WHERE like_to_post_id = '$post_id' AND like_username = '$username'");
+
 	}	
 }
 

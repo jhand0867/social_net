@@ -58,11 +58,19 @@ if ( isset($_POST['like_button'] ) )
 	$total_likes++;
 	$user_liked->increaseLikes();
 	$post = new Post( $con , $loggedUsername );
-	$post->increaseLikes( $post_id );
+	$post->increaseLikes( $post_id , $loggedUsername);
 
 }
 
 // unlike button
+if ( isset($_POST['unlike_button'] ) )
+{
+	$total_likes--;
+	$user_liked->decreaseLikes();
+	$post = new Post( $con , $loggedUsername );
+	$post->decreaseLikes( $post_id , $loggedUsername );
+
+}
 
 // check for previous likes
 
