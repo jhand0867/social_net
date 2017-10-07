@@ -7,11 +7,20 @@
 			font-family: arial, sans-serif;
 			font-size:14;
 		} 
-
 	</style>
 
 </head>
 <body>
+<style type="text/css">
+	body {
+		background-color: #fff;
+	}
+
+	form {
+		top: 4px;
+    	position: absolute;"
+	}
+</style>
 <?php 
 require 'config/config.php';
 require 'assets/classes/User.php';
