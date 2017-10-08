@@ -222,14 +222,9 @@ textarea: focus{
 }
 
 .newsfeedPostOptions iframe {
-	border: 0;
+	border: 0px;
     height: 17px;
     width: 120px;
-}
-
-.newsfeedPostOptions form {
-	top: 10px;
-    position: absolute;"
 }
 
 .comment_like {
@@ -247,4 +242,38 @@ textarea: focus{
 	color: #06f;
     display: inline;
     font-size: 14;
+}
+
+.profile_left {
+	position: relative;
+	float: left;
+    top: -10px;
+    width: 17%;
+    max-width: 240px;
+    min-width: 130px;
+    height: 100%;
+    color: #fff;
+    background-color: #0faae5;
+}
+
+.profile_left img {
+    border-radius: 100%;
+    margin: 30px;
+    border: 5px solid;
+    min-width: 80px;
+    width: 55%;
+ }
+
+ .profile_info{
+    background-color: #2a80b4;
+    width: 90%;
+    margin-left: 8px;
+    padding: 4px;
+    font-size: 17;
+    padding: 10px 0 10px 0;
+}
+
+.profile_info p {
+	margin: 0 0 0 20px;
+	word-wrap: break-word;
 }

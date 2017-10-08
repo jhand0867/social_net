@@ -22,7 +22,12 @@ class User
 
 	public function getNumPosts()
 	{
-		return $this->user['num_post'];
+		return $this->user['num_posts'];
+	}
+
+	public function getLikesNum()
+	{
+		return $this->user['num_likes'];
 	}
 
 	public function increaseNumPost()
@@ -113,9 +118,14 @@ class User
 			return false;
 		}
 
-
-
 	}
+
+	public function getFriendsCount()
+	{
+		return (substr_count( $this->user['friends_array'], "," )) - 1;
+	}
+
+
 }
 
  ?>

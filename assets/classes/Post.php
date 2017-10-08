@@ -128,7 +128,7 @@ class Post
 					// not closed, get some info for who's posting
 
 					$added_by_full_name = $added_by_obj->getFirstAndLastName();
-					$added_by_name = $added_by_obj->getFirstName();
+					$added_by_name = $added_by_obj->getUsername();
 					$added_by_pic = $added_by_obj->getPic();
 
 					?>

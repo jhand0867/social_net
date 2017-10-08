@@ -25,14 +25,14 @@ if(isset($_POST['post_button']))
 
 ?>
 	<div class="user_details column">
-		<a href="<? echo $user['first_name']; ?>">
+		<a href="<? echo $user['username']; ?>">
 			<img src="<? echo $user['profile_pic'] ?>">
 		</a>
 		<div class="user_details_left_right">
 			<!-- User Details Data -->
-			<a href=" <? echo $user['first_name']; ?> ">
+			<a href=" <? echo $user['username']; ?> ">
 			<?
-				echo $user['first_name'] . "<br>"; // . $user['last_name'];
+				echo $user['first_name'] . "<br>"; 
 			?>
 			</a>
 			<?
