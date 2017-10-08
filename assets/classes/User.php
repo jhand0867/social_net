@@ -125,6 +125,31 @@ class User
 		return (substr_count( $this->user['friends_array'], "," )) - 1;
 	}
 
+	public function receivedFriendRequest($username_to_check)
+	{
+		$user_from = $this->user['username'];
+		$friends_query = mysqli_query($this->conn , 
+			"SELECT * 
+			 FROM soc_friend_requests 
+			 WHERE user_from ='$username_to_check' AND user_to = '$user_from'");
+		if ( mysqli_num_rows($friends_query) > 0 )
+			return true;
+		else
+			return false;
+	}
+	public function sentFriendRequest($username_from_check)
+	{
+		$user_to = $this->user['username'];
+		$friends_query = mysqli_query($this->conn , 
+			"SELECT * 
+			 FROM soc_friend_requests 
+			 WHERE user_from ='$username_from_check' AND user_to = '$user_to'");
+		if ( mysqli_num_rows($friends_query) > 0 )
+			return true;
+		else
+			return false;
+	}
+
 
 }
 

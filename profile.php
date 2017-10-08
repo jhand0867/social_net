@@ -45,15 +45,49 @@ if(isset($_GET['profile_username']))
 						if ( $logged_in_user_obj->isFriend( $username ))
 						{
 							// show unfriend button
-							echo ' <input type="submit" class="dontDoIt" name="unfriend" 
-							value="Unfriend"><rb> ';
+							echo ' <input type="submit" class="danger" name="remove_friend" 
+							value="Unfriend" style="width: 90%;
+													height: 35px;
+													margin: 7px 0 0 7px;
+													color: #fff;
+													border: none;
+													border-radius: 5px;"><rb> ';
+						}
+						else if ( $logged_in_user_obj->receivedFriendRequest( $username ))
+						{
+							// show Accept Request from friend button
+							echo ' <input type="submit" class="warning" name="request_friend" 
+							value="Friend Request" style="width: 90%;
+													height: 35px;
+													margin: 7px 0 0 7px;
+													color: #fff;
+													border: none;
+													border-radius: 5px;"><rb> ';							
+						}
+						else if ( $logged_in_user_obj->sentFriendRequest( $username ))
+						{
+							// show friend button
+							echo ' <input type="submit" class="default" name="" 
+							value="Request Friend"style="width: 90%;
+													height: 35px;
+													margin: 7px 0 0 7px;
+													color: #fff;
+													border: none;
+													border-radius: 5px;"><rb> ';							
 						}
 						else
 						{
 							// show friend button
-							echo ' <input type="submit" class="dontDoIt" name="friend" 
-							value="Friend"><rb> ';							
+							echo ' <input type="submit" class="success" name="add_friend" 
+							value="Add Friend"style="width: 90%;
+													height: 35px;
+													margin: 7px 0 0 7px;
+													color: #fff;
+													border: none;
+													border-radius: 5px;"><rb> ';							
+
 						}
+
 					}
 
 

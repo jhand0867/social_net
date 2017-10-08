@@ -264,7 +264,7 @@ textarea: focus{
     width: 55%;
  }
 
- .profile_info{
+.profile_info{
     background-color: #2a80b4;
     width: 90%;
     margin-left: 8px;
@@ -276,4 +276,37 @@ textarea: focus{
 .profile_info p {
 	margin: 0 0 0 20px;
 	word-wrap: break-word;
+}
+
+.danger {
+	background-color: #e74c3c;
+}
+
+.warning {
+	background-color: #a0fd4e;
+}
+
+.default {
+	background-color: #dbc3c7;
+}
+
+.success {
+	background-color: #2ecc71;
+}
+
+.info {
+	background-color: #3498db;
+}
+
+.deep_blue {
+	background-color: #0043f0;
+}
+
+.profile_left input["submit"] {
+	width: 90%;
+	height: 35px;
+	margin: 7px 0 0 7px;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
 }
