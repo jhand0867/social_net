@@ -18,7 +18,7 @@ class Post
 		// safe text
 		$utils = new Utils();
 
-		$post_body = $utils->stringSafe($this->conn, $post_body);
+		$post_body = $utils->stringSafe($this->conn, $body);
 		//$post_body = mysqli_real_escape_string( $this->conn , $post_body );
 		$check_empty = preg_replace( '/\s+/' , '' , $post_body );
 

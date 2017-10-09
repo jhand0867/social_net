@@ -9,6 +9,7 @@ class User
 
 	public function __construct($conn , $user)
 	{
+		//echo "User created<br>";
 		$this->conn = $conn;
 		$user_details_qry = mysqli_query($conn, "SELECT * FROM soc_users WHERE username = '$user'");
 		$this->user = mysqli_fetch_array($user_details_qry);
@@ -120,34 +121,105 @@ class User
 
 	}
 
+	public function getFriendsList()
+	{
+		$user_logged_in = $this->user['username'];
+		$user_query = mysqli_query($this->conn , 
+			"SELECT * 
+			 FROM soc_friend_requests
+			 WHERE user_to = '$user_logged_in'" );
+		if (mysqli_num_rows($user_query) > 0 )
+		{
+			$friend_requests = mysqli_fetch_array($user_query , MYSQL_ASSOC);
+		}
+		else
+		{
+			$friend_requests = "";
+		}
+		return $friend_requests;
+	}
+
 	public function getFriendsCount()
 	{
 		return (substr_count( $this->user['friends_array'], "," )) - 1;
 	}
 
-	public function receivedFriendRequest($username_to_check)
-	{
-		$user_from = $this->user['username'];
-		$friends_query = mysqli_query($this->conn , 
-			"SELECT * 
-			 FROM soc_friend_requests 
-			 WHERE user_from ='$username_to_check' AND user_to = '$user_from'");
-		if ( mysqli_num_rows($friends_query) > 0 )
-			return true;
-		else
-			return false;
-	}
-	public function sentFriendRequest($username_from_check)
+	public function didReceivedFriendRequest($user_from)
 	{
 		$user_to = $this->user['username'];
 		$friends_query = mysqli_query($this->conn , 
 			"SELECT * 
 			 FROM soc_friend_requests 
-			 WHERE user_from ='$username_from_check' AND user_to = '$user_to'");
+			 WHERE user_from ='$user_from' AND user_to = '$user_to'");
 		if ( mysqli_num_rows($friends_query) > 0 )
 			return true;
 		else
 			return false;
+	}
+
+	public function didSendFriendRequest($user_to)
+	{
+		$user_from = $this->user['username'];
+		$friends_query = mysqli_query($this->conn , 
+			"SELECT * 
+			 FROM soc_friend_requests 
+			 WHERE user_from ='$user_from' AND user_to = '$user_to'");
+		if ( mysqli_num_rows($friends_query) > 0 )
+			return true;
+		else
+			return false;
+	}
+
+	public function removeFriend($username_to_remove)
+	{
+		echo "<br>Remove Friend " . $username_to_remove ;
+		$user_logged_in = $this->user['username'];
+		
+		// check if friends with 
+		$friends_query = mysqli_query($this->conn , 
+			"SELECT friends_array 
+			 FROM soc_users 
+			 WHERE username ='$username_to_remove'");
+		$row = mysqli_fetch_array($friends_query);
+
+		// actual friends list
+		$friends_array_username = $row['friends_array'];
+
+		// remove from logged user friend's list
+
+		$new_friends_array = 
+			str_replace($username_to_remove . ",", "", $this->user['friends_array']);
+
+		$remove_friend = mysqli_query($this->conn , 
+			"UPDATE soc_users 
+			 SET friends_array = '$new_friends_array' 
+			 WHERE username ='$user_logged_in'");
+
+		// remove from friend friend's list
+		$new_friends_array = 
+			str_replace($user_logged_in . ",", "", $friends_array_username);
+
+		$remove_friend = mysqli_query($this->conn , 
+			"UPDATE soc_users 
+			 SET friends_array = '$new_friends_array' 
+			 WHERE username ='$username_to_remove'");
+
+	}
+
+	public function sendFriendRequest($user_to)
+	{
+		$user_from = $this->user['username'];
+		$date_time = date("Y-m-d H-i-s");
+
+		$request_query = mysqli_query( $this->conn ,
+			"INSERT INTO soc_friend_requests (id, user_from, user_to, req_date)
+			 VALUES('', '$user_from', '$user_to', '$date_time' ) ");
+		$returned_id = mysqli_insert_id($this->conn);
+	}
+
+	public function addFriend($username_to_add)
+	{
+
 	}
 
 

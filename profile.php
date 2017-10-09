@@ -9,9 +9,28 @@ if(isset($_GET['profile_username']))
 {
 	$username = $_GET['profile_username'];
 	$profile_user = new User( $con , $username );
-
-
 }
+
+if(isset($_POST['remove_friend']))
+{
+	echo "Removed Friend clicked";
+
+	$user = new User( $con , $loggedUsername );
+	$user->removeFriend($username);
+}
+
+if(isset($_POST['add_friend']))
+{
+	echo "add friend clicked";
+	$user = new User( $con , $loggedUsername );
+	$user->sendFriendRequest($username);
+}
+
+if(isset($_POST['respond_request']))
+{
+	header("Location: requests.php");
+}
+
 
 ?>
 	<style type="text/css">
@@ -30,7 +49,7 @@ if(isset($_GET['profile_username']))
 			<p>Friends: <? echo $profile_user->getFriendsCount() ?> <p>
 		</div>
 
-		<form action = "<? echo $username; ?>" >
+		<form action = "<? echo $username; ?>" method="POST" >
 
 			<? 
 				if($profile_user->isAccountClosed())
@@ -53,7 +72,7 @@ if(isset($_GET['profile_username']))
 													border: none;
 													border-radius: 5px;"><rb> ';
 						}
-						else if ( $logged_in_user_obj->receivedFriendRequest( $username ))
+						else if ( $logged_in_user_obj->didReceivedFriendRequest( $username ))
 						{
 							// show Accept Request from friend button
 							echo ' <input type="submit" class="warning" name="request_friend" 
@@ -64,7 +83,7 @@ if(isset($_GET['profile_username']))
 													border: none;
 													border-radius: 5px;"><rb> ';							
 						}
-						else if ( $logged_in_user_obj->sentFriendRequest( $username ))
+						else if ( $logged_in_user_obj->didSendFriendRequest( $username ))
 						{
 							// show friend button
 							echo ' <input type="submit" class="default" name="" 
