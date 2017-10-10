@@ -121,13 +121,13 @@ class User
 
 	}
 
-	public function getFriendsList()
+	public function getFriendsRequests()
 	{
 		$user_logged_in = $this->user['username'];
 		$user_query = mysqli_query($this->conn , 
 			"SELECT * 
 			 FROM soc_friend_requests
-			 WHERE user_to = '$user_logged_in'" );
+			 WHERE user_to = '$user_logged_in' AND status='P'" );
 		if (mysqli_num_rows($user_query) > 0 )
 		{
 			$friend_requests = mysqli_fetch_array($user_query , MYSQL_ASSOC);
@@ -142,6 +142,12 @@ class User
 	public function getFriendsCount()
 	{
 		return (substr_count( $this->user['friends_array'], "," )) - 1;
+	}
+
+
+	public function getFriendsArray()
+	{
+		return $this->user['friends_array'];
 	}
 
 	public function didReceivedFriendRequest($user_from)
@@ -217,9 +223,41 @@ class User
 		$returned_id = mysqli_insert_id($this->conn);
 	}
 
+	public function removeFriendRequest($user_from, $user_to)
+	{		
+		// change friend request to A=accepted
+		$upd_friend_request_qry = mysqli_query( $this->conn , 
+			"UPDATE soc_friend_requests
+			 SET status = 'A'
+			 WHERE user_from='$user_to' AND user_to='$user_from' "); 
+	}
+
 	public function addFriend($username_to_add)
 	{
+		//echo "<br>In addFriend";
 
+		// get the actual user friend list of who accept the request
+		$user_friends_list = $this->user['friends_array'];
+		$user_logged_in = $this->user['username'];
+
+		// new user to access who requested to be added
+		$requester_user = new User( $this->conn , $username_to_add );
+		$requester_user_friend_list = $requester_user->getFriendsArray();
+
+
+		// add requesting user to who accepted friends list
+
+		$upd_who_accepts_qry = mysqli_query( $this->conn , 
+			"UPDATE soc_users
+			 SET friends_array = CONCAT('$user_friends_list','$username_to_add,')
+			 WHERE username='$user_logged_in'");
+
+		// add who accepted to requesting user friends list
+
+		$upd_who_accepts_qry = mysqli_query( $this->conn , 
+			"UPDATE soc_users
+			 SET friends_array = CONCAT('$requester_user_friend_list','$user_logged_in,')
+			 WHERE username='$username_to_add'");
 	}
 
 

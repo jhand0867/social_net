@@ -1,8 +1,6 @@
 <?php 
 
 require 'includes/header.php';
-require 'assets/classes/User.php';
-require 'assets/classes/Post.php';
 require_once 'assets/classes/Utils.php';
 
 if(isset($_GET['profile_username']))

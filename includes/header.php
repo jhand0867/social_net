@@ -1,5 +1,8 @@
 <?php 
 require "config/config.php";
+require 'assets/classes/User.php';
+require 'assets/classes/Post.php';
+
 // require "includes/global_utils.php";
 /* Create a trace file in '/tmp/client.trace' on the local (client) machine: */
 mysqli_debug("d:t:0,/tmp/client.trace");
@@ -36,7 +39,7 @@ else
 			<a href="index.php"><i class="fa fa-home fa-lg" aria-hidden="true"></i></a>
 			<a href="#"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a>
 			<a href="#"><i class="fa fa-bell fa-lg" aria-hidden="true"></i></a>
-			<a href="#"><i class="fa fa-users fa-lg" aria-hidden="true"></i></a>
+			<a href="request.php"><i class="fa fa-users fa-lg" aria-hidden="true"></i></a>
 			<a href="#"><i class="fa fa-cog fa-lg" aria-hidden="true"></i></a>
 			<a href="includes/handlers/logout.php"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i></a>
 		</nav>
