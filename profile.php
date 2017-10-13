@@ -115,13 +115,53 @@ if(isset($_POST['respond_request']))
 
 
 		</form>
+			<!-- Button trigger modal -->
+			<input type="submit" class="deep_blue" data-toggle="modal" data-target="#postForm"
+				style="width: 95%;height: 35px;margin: 7px 0 0 7px;color: #fff;border: none;
+				border-radius: 5px;" value="Post to User">
 	</div>
 	
 	<div class="main_column column">
-		
-
+		<? echo $profile_user->getUsername();?>
+		<br><br>
 
 	</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="postForm" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Post Something!</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+
+		      <div class="modal-body">
+		        <p>This will show in the user's profile and his newsfeed for friends to see.</p>
+
+		        <form class="profile_post" action="" method="POST">
+		        	<div class="form-group">
+		        		<? echo "profile_post"; ?>
+		        		<textarea class="form-control" name="post_body"></textarea>
+		        		<input type="hidden" name="user_from" value="<? echo $loggedUsername; ?>">
+		        		<input type="hidden" name="user_to" value="<? echo $profile_user->getUsername(); ?>">
+		        		<!-- <input type="submit"> -->
+		        	</div>
+
+		        </form>
+		      </div>
+
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" name="post_button" id="submit_profile_post">Post</button>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
 
 
 </div>

@@ -37,14 +37,14 @@ require 'includes/header.php';
 				
 				if(isset($_POST[$req_accept]))
 				{
-					echo 'YAY!!';
-					echo "user_from = " .$user_from;
-				    echo "user logged = " . $loggedUsername;
+					echo '  YAY!!';
+					//echo "user_from = " .$user_from;
+				    //echo "user logged = " . $loggedUsername;
 
 					$user->addFriend($user_from);
 					$user->removeFriendRequest($loggedUsername, $user_from);
 
-					echo "You are now friend with " . $user_from_obj->getFirstAndLastName();
+					echo "<br>You are now friend with " . $user_from_obj->getFirstAndLastName();
 					//header("Location: request.php");
 
 
@@ -53,9 +53,7 @@ require 'includes/header.php';
 
 				if (isset($_POST[$req_ignore]))
 				{
-					echo "YOY!";
-					
-
+					$user->removeFriendRequest($loggedUsername, $user_from);
 				}			
 			?>
 			<form action="request.php" method="POST">

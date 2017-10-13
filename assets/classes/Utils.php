@@ -113,6 +113,18 @@ class Utils
 		return $time_message;
 	}
 
+	public function LogData($filename, $data_to_log)
+	{
+		$file = "../../logs/".$filename;
+		// The file to log to
+		$stringToLog = "$data_to_log\n";
+		// Write the contents to the file, 
+		// using the FILE_APPEND flag to append the content to the end of the file
+		// and the LOCK_EX flag to prevent anyone else writing to the file at the same time
+		file_put_contents($file, $stringToLog, FILE_APPEND | LOCK_EX);
+	}
+
+
 
 }
 

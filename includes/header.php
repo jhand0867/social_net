@@ -21,8 +21,11 @@ else
 <head>
 	<title>Social Net</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/popper.js@1.12.5/dist/umd/popper.js"></script>
 	<script src="assets/js/bootstrap.js"></script>
     <script src="https://use.fontawesome.com/4a24d42811.js"></script>
+    <script src="assets/js/social_net.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
@@ -33,7 +36,7 @@ else
 			<a href="index.php">Social Net</a>
 		</div>
 		<nav>
-			<a href="<? echo $user['first_name']; ?>">
+			<a href="<? echo $user['username']; ?>">
 				<? echo $user['first_name'] ?>
 			</a>
 			<a href="index.php"><i class="fa fa-home fa-lg" aria-hidden="true"></i></a>

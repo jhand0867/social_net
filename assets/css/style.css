@@ -310,3 +310,25 @@ textarea: focus{
 	border: none;
 	border-radius: 5px;
 }
+
+#accept_button {
+	width: 20%;
+    height: 34px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 5px 10px 5px;
+}
+
+#ignore_button {
+	width: 20%;
+    height: 34px;
+    color: #fff;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 5px 10px 5px;
+}
+
+
