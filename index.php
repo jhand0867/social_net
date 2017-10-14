@@ -5,6 +5,12 @@
 require 'includes/header.php';
 require 'includes/chromephp/ChromePhp.php';
 
+// verify user preferred_lang
+
+$U = new Utils();
+$U->selectLanguage($con , $user['username']);
+
+
 //session_destroy();
 
 // deal with the post

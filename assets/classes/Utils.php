@@ -1,11 +1,12 @@
 <?php 
 // global_utils.php
 
-// make string safe
+//require_once "User.php";
 
 class Utils 
 {
 
+	// make string safe
 	public function stringSafe( $dbConnection, $stringToSafe )
 	{
 		$safeString = strip_tags($stringToSafe); 
@@ -122,6 +123,16 @@ class Utils
 		// using the FILE_APPEND flag to append the content to the end of the file
 		// and the LOCK_EX flag to prevent anyone else writing to the file at the same time
 		file_put_contents($file, $stringToLog, FILE_APPEND | LOCK_EX);
+	}
+
+	public function selectLanguage($connection , $username)
+	{
+		// select language based on profile preferred_lang
+
+		$user = new User($connection , $username);
+		echo "Languge = " . $user->getLanguage();
+
+
 	}
 
 

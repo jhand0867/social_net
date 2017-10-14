@@ -239,7 +239,7 @@ textarea: focus{
 }
 
 .likes_value {
-	color: #06f;
+	color: #000;
     display: inline;
     font-size: 14;
 }

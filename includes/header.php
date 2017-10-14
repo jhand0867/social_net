@@ -1,5 +1,6 @@
 <?php 
 require "config/config.php";
+require "assets/classes/Utils.php";
 require 'assets/classes/User.php';
 require 'assets/classes/Post.php';
 

@@ -144,6 +144,10 @@ class User
 		return (substr_count( $this->user['friends_array'], "," )) - 1;
 	}
 
+	public function getLanguage()
+	{
+		return $this->user['preferred_lang'];
+	}
 
 	public function getFriendsArray()
 	{

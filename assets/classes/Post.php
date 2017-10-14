@@ -1,6 +1,6 @@
 <?php 
 // Post.php
-require "Utils.php";
+require_once "Utils.php";
 
 class Post
 {
