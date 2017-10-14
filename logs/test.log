@@ -1,0 +1,3 @@
+post_body = testing testinguser_to = maria_handschuuser_from = joseph_handschu
+post_body = This is a post from maria to josephuser_to = joseph_handschuuser_from = maria_handschu
+post_body = Post to selfuser_to = joseph_handschuuser_from = joseph_handschu
