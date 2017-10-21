@@ -120,10 +120,38 @@ if(isset($_POST['respond_request']))
 				style="width: 95%;height: 35px;margin: 7px 0 0 7px;color: #fff;border: none;
 				border-radius: 5px;" value="Post to User">
 	</div>
-	
-	<div class="main_column column">
-		<? echo $profile_user->getUsername();?>
-		<br><br>
+	<img src="">
+	<div class="profile_friends_column column">
+			<?php 
+				if($username != $loggedUsername)
+				{
+					// this is not logged user profile page
+
+					$friends = $profile_user->getMutualFriends($loggedUsername);
+					foreach ($friends as $f) {
+					 	$user_obj = new User($con , $f);
+					 	echo "<div class='post_profile_pic'> <img src='" . $user_obj->getPic() . "'></div>";
+					 } 
+				}
+				else
+				{
+					// this is not logged user profile page
+
+					$user = new User($con , $loggedUsername);
+					$friends = $user->getMutualFriends($loggedUsername);
+					foreach ($friends as $f) {
+					 	$user_obj = new User($con , $f);
+					 	echo "<img src='" . $user_obj->getPic() . "'>";
+					 } 
+
+				}
+
+			 ?>
+	</div >
+	<div class="profile_main_column column">
+		<div class="posts_area">  </div>
+		<img id="loading" src="assets/icons/loading.gif" >
+
 
 	</div>
 
@@ -162,6 +190,69 @@ if(isset($_POST['respond_request']))
 		    </div>
 		  </div>
 		</div>
+	<script>
+		//alert( '<? echo $loggedUsername; ?>' );
+		var userLoggedIn = '<? echo $loggedUsername; ?>';
+		var profileUsername = '<? echo $username; ?>';
+
+
+		$(document).ready(function() {
+
+			$('#loading').show();
+
+			// loading first set of posts
+			$.ajax({
+				url: "includes/handlers/ajax_load_profile_posts.php",
+				type: "POST",
+				data: "page=1&userLoggedIn=" + userLoggedIn + "&profileUsername=" + profileUsername,
+				cache: false,
+
+				success: function (data) {
+					$('#loading').hide();
+					$('.posts_area').html(data);
+
+				}
+			});
+
+			$(window).scroll(function() {
+
+				var height = $('.posts_area').height();  // posts div
+				var scroll_top = $(this).scrollTop();
+				var page = $('.posts_area').find('.next_page').val();
+				var noMorePosts = $('.posts_area').find('.no_more_posts').val();
+
+				if ( (document.body.scrollHeight >= document.body.scrollTop + window.innerHeight) 
+					&& noMorePosts == 'false' ) {
+
+					$('#loading').show();
+
+					
+					var ajaxReq = $.ajax({
+						url: 'includes/handlers/ajax_load_profile_posts.php',
+						type: 'POST',
+						data: 'page=' + page + '&userLoggedIn=' + userLoggedIn + "&profileUsername=" + profileUsername,
+						cache: false,
+
+						success: function (response) {
+							// get rid of currect shown page
+							$('.posts_area').find('.next_page').remove();
+							$('.posts_area').find('.no_more_posts').remove();
+
+							$('#loading').hide();
+							$('.posts_area').append(response);
+
+						}
+					});	
+				
+				} // end if document.body.scrollHeight
+
+				return false;
+
+			}); // end $(window).scroll(function()
+		});
+
+
+	</script>
 
 
 </div>

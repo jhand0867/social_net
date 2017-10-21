@@ -6,7 +6,7 @@ require 'assets/classes/Post.php';
 
 // require "includes/global_utils.php";
 /* Create a trace file in '/tmp/client.trace' on the local (client) machine: */
-mysqli_debug("d:t:0,/tmp/client.trace");
+//mysqli_debug("d:t:0,/tmp/client.trace");
 	
 if (isset($_SESSION['username']))
 {
@@ -24,8 +24,10 @@ else
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/popper.js@1.12.5/dist/umd/popper.js"></script>
 	<script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/bootbox.min.js"></script>
     <script src="https://use.fontawesome.com/4a24d42811.js"></script>
     <script src="assets/js/social_net.js"></script>
+
     
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">

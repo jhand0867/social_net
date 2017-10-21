@@ -51,15 +51,18 @@ class Post
 
 	public function loadPostsFriends( $data , $limit )
 	{
+		//print_r($data);
+		//echo "<br>";
 		$page = $data['page'];
 		$userLoggedIn = $this->user_obj->getUsername();
+		//echo "userLoggedIn = " . $userLoggedIn;
 
 		if ($page == 1)
 			$start = 0;
 		else
 			$start = ($page - 1) * $limit;
 
-		$str = ""; // to build up
+		$str = ""; // to build up content of column 
 		$data_posts = mysqli_query($this->conn, 
 			"SELECT * 
 			FROM soc_posts 
@@ -77,21 +80,22 @@ class Post
 				$body = $row['post_body'];
 				$added_by = $row['post_added_by'];
 				$date_time = $row['post_date'];
+				$posted_to = $row['post_user_to'];
 
-				// echo $date_time;
+				//echo $userLoggedIn ." , " .$posted_to ." , " . $added_by ."<br>";
 
 				// is it self posted? ... or do I need to get user name
 
-				if($row['post_user_to'] == "none")
+				if($posted_to == "none")
 				{
 					$user_to = "";
 				}
 				else
 				{
-					$user_to_obj = new User( $this->conn, $row['post_user_to']);
+					$user_to_obj = new User( $this->conn, $posted_to);
 					$user_to_full_name = $user_to_obj->getFirstAndLastName();
 					$user_to_name = $user_to_obj->getFirstName();
-					$user_to = "to <a href='" . $row['post_user_to'] . "'>" . $user_to_name . "</a>";
+					$user_to = "to <a href='" . $posted_to . "'>" . $user_to_full_name . "</a>";
 				}
 
 				// is the posting account closed?
@@ -105,8 +109,12 @@ class Post
 
 				// is post from friends?
 
+				//echo "before isFriend <br>";
+				//echo $userLoggedIn ." , ". $added_by . "<br>";
 
-				if ( $this->user_obj->isFriend($added_by) )
+				$user_logged_obj = new User($this->conn , $userLoggedIn);
+
+				if ( $user_logged_obj->isFriend($added_by) )
 				{
 					if ( $num_iterations++ < $start )
 					{
@@ -123,6 +131,14 @@ class Post
 					{
 						$count++;
 					}
+
+					if ($userLoggedIn == $added_by)
+					{
+						$delete_button = 
+						"<button class='delete_button btn-danger' id='post$id'>X</button>";
+					}
+					else
+						$delete_button = "";
 
 
 					// not closed, get some info for who's posting
@@ -178,6 +194,7 @@ class Post
 								<div class='posted_by' style='color:ACACAC;'>
 									<a href='$added_by_name'>$added_by_full_name</a> 
 									$user_to &nbsp;&nbsp;&nbsp;$time_message 
+									$delete_button
 								</div>
 
 								<div id='post_body' >
@@ -195,6 +212,201 @@ class Post
 							</div>
 							<hr>";
 				}
+				?>
+
+				<!-- manage delete_post button --> 
+				<script>
+					$(document).ready(function() {
+						$('#post<?php echo $id; ?>').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+								$.post("includes/form_handlers/delete_post.php?post_id=<?php echo $id; ?>", 
+									{result:result});
+								if(result)
+									location.reload();
+							});
+						});
+					});
+				</script>
+
+			<?
+
+			} // while ends here
+
+			// more posts to be loaded
+			if ( $count > $limit )
+			{
+				$str .= "<input type='hidden' class='next_page' value='" . ($page + 1) ."'>
+				<input type='hidden' class='no_more_posts' value='false'>";
+
+			}
+			// all posts loaded
+			else
+			{
+				$str .= "<input type='hidden' class='no_more_posts' value='true'>
+				<p style='text-align: centre;'>That's all folks!</p>";
+			}
+
+		// show the post
+		echo $str;
+
+		}
+	}
+
+	public function loadProfilePosts( $data , $limit )
+	{
+		//print_r($data);
+		//echo "<br>";
+		$page = $data['page'];
+		$profileUsername = $data['profileUsername'];
+		$userLoggedIn = $this->user_obj->getUsername();
+		//echo "userLoggedIn = " . $userLoggedIn;
+
+		if ($page == 1)
+			$start = 0;
+		else
+			$start = ($page - 1) * $limit;
+
+		$str = ""; // to build up content of column 
+
+		$data_posts = mysqli_query($this->conn, 
+			"SELECT * 
+			FROM soc_posts 
+			WHERE post_deleted = 'no' 
+			AND ((post_added_by = '$profileUsername' AND post_user_to = 'none') 
+			OR post_user_to = '$profileUsername')
+			ORDER BY id DESC");
+
+		if ( mysqli_num_rows($data_posts) > 0 )
+		{
+			$num_iterations = 0; //Number of results checked (not necasserily posted)
+			$count = 1;
+
+			while ( $row = mysqli_fetch_array($data_posts) )
+			{
+				$id = $row['id'];
+				$body = $row['post_body'];
+				$added_by = $row['post_added_by'];
+				$date_time = $row['post_date'];
+				$posted_to = $row['post_user_to'];
+
+				//echo $userLoggedIn ." , " .$posted_to ." , " . $added_by ."<br>";
+
+				// is it self posted? ... or do I need to get user name
+
+					if ( $num_iterations++ < $start )
+					{
+						continue;
+					}
+
+					// set limit posts already loaded?
+
+					if ( $count > $limit )
+					{
+						break;					
+					}
+					else
+					{
+						$count++;
+					}
+
+					if ($userLoggedIn == $added_by)
+					{
+						$delete_button = 
+						"<button class='delete_button btn-danger' id='post$id'>X</button>";
+					}
+					else
+						$delete_button = "";
+
+
+					// not closed, get some info for who's posting
+
+					$added_by_obj = new User($this->conn, $added_by);
+					$added_by_full_name = $added_by_obj->getFirstAndLastName();
+					$added_by_name = $added_by_obj->getUsername();
+					$added_by_pic = $added_by_obj->getPic();
+
+					?>
+
+					<script>
+
+					function toggle<?php echo $id; ?>()
+					{
+						var target = $(event.target);
+						if(!target.is("a"))
+						{
+							element = document.getElementById("toggleComment<?php echo $id;?>");
+
+							if (element.style.display == "block")
+								element.style.display = "none";
+							else
+								element.style.display = "block";				
+						}
+					}
+
+
+					</script>
+
+					<?
+
+					// how many comments ?
+					$comments_check = mysqli_query( $this->conn,
+						"SELECT * 
+						 FROM soc_comments
+						 WHERE comment_to_post_id = '$id'" );
+					$comments_check_count = mysqli_num_rows($comments_check);
+
+
+					// time since last post
+
+					$utils = new Utils();
+
+					$time_message = $utils->postInterval( $date_time );
+
+					// build the post
+					
+					$str .= "<div class='status_post' onClick='javascript:toggle$id()'>
+								<div class='post_profile_pic'>
+									<img src='$added_by_pic' width='50'>
+								</div>
+
+								<div class='posted_by' style='color:ACACAC;'>
+									<a href='$added_by_name'>$added_by_full_name</a> 
+									&nbsp;&nbsp;&nbsp;$time_message 
+									$delete_button
+								</div>
+
+								<div id='post_body' >
+									$body<br><br><br>
+								</div>
+
+								<div class='newsfeedPostOptions'>
+									Comments($comments_check_count)&nbsp;&nbsp;&nbsp;
+									<iframe src='like.php?post_id=$id' scrolling='no'></iframe>
+								</div>
+							</div>
+
+							<div class='post_comment' id='toggleComment$id' style='display:none;'>	
+								<iframe src='comment_frame.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
+							</div>
+							<hr>";
+				?>
+
+				<!-- manage delete_post button --> 
+				<script>
+					$(document).ready(function() {
+						$('#post<?php echo $id; ?>').on('click', function() {
+							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+								$.post("includes/form_handlers/delete_post.php?post_id=<?php echo $id; ?>", 
+									{result:result});
+								if(result)
+									location.reload();
+							});
+						});
+					});
+				</script>
+
+			<?
+
 			} // while ends here
 
 			// more posts to be loaded

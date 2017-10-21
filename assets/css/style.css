@@ -278,6 +278,25 @@ textarea: focus{
 	word-wrap: break-word;
 }
 
+.profile_main_column{
+	min-width: 675px;
+    min-height: 200px;
+    float: left;
+    width: 70px;
+    margin: 5px 10px 10px 10px;
+    z-index: -1;
+}
+
+.profile_friends_column {
+	min-width: 675px;
+    min-height: 240px;
+    float: left;
+    width: 40px;
+    margin: 5px 10px 10px 10px;
+    z-index: -1;
+
+}
+
 .danger {
 	background-color: #e74c3c;
 }
@@ -331,4 +350,19 @@ textarea: focus{
     margin: 10px 5px 10px 5px;
 }
 
+.btn-danger {
+	color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    width: 10%;
+    font-size: 14;
+    border-radius: 7px;
+    margin: 1px 10px 1px 10px;
+}
 
+.profile_friends_column img {
+	width: 77px;
+    margin: 0px 6px 6px 3px;
+    border: none;
+    border-radius: 5px;}
+}

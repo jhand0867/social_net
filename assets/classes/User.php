@@ -110,7 +110,7 @@ class User
 		
 		// find if the user is in the array
 		if( ( strstr($this->user['friends_array'], $match_username ) ) || 
-			$match_username == $this->user['username'])
+			$username_to_check == $this->user['username'])
 		{
 			return true;
 		}
@@ -262,6 +262,34 @@ class User
 			"UPDATE soc_users
 			 SET friends_array = CONCAT('$requester_user_friend_list','$user_logged_in,')
 			 WHERE username='$username_to_add'");
+	}
+
+	public function getMutualFriends($user_to)
+	{
+		// using friends array to find out common friends
+
+		$mutual_friends = 0;
+		$mutual_friends_usernames = [];
+
+		$friends_array = $this->user['friends_array'];
+		$friends_array_explode = explode(",", $friends_array);
+
+		$compare_user = new User($this->conn , $user_to);
+		$friends_array_compare = explode(",",$compare_user->getFriendsArray());
+
+		foreach ($friends_array_explode as $i) {
+
+			foreach ($friends_array_compare as $j) {
+				
+				if ( $i == $j && $i!= "")
+				{
+					$mutual_friends ++;
+					$mutual_friends_usernames[$mutual_friends] = $i;
+				}
+			}
+		}
+
+		return $mutual_friends_usernames;
 	}
 
 
