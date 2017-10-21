@@ -7,9 +7,17 @@ require 'includes/chromephp/ChromePhp.php';
 
 // verify user preferred_lang
 
-$U = new Utils();
-$U->selectLanguage($con , $user['username']);
 
+
+$U = new Utils();
+
+//echo $user['username'];
+
+$lang = $U->selectLanguage($con , $user['username']);
+
+//print_r($_SESSION);
+
+//echo "language set as " . $lang;
 
 //session_destroy();
 
@@ -26,6 +34,7 @@ if(isset($_POST['post_button']))
 }
 
 
+
 ?>
 	<div class="user_details column">
 		<a href="<? echo $user['username']; ?>">
@@ -39,8 +48,10 @@ if(isset($_POST['post_button']))
 			?>
 			</a>
 			<?
-				echo "Posts: " . $user['num_posts'] . "<br>" ;
-				echo "Likes: " . $user['num_likes'];
+				// lbl_post_1
+				// getLangKey("lbl_post_1");
+				echo $U->getLanguageKey("key_lbl_post_1",$lang). ":"  . $user['num_posts'] . "<br>" ;
+				echo $U->getLanguageKey("key_lbl_like_1",$lang). ":"  . $user['num_likes'];
 			?>
 		</div>
 	</div>
