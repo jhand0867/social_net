@@ -130,9 +130,24 @@ class Utils
 		// select language based on profile preferred_lang
 
 		$user = new User($connection , $username);
-		echo "Languge = " . $user->getLanguage();
+		return $user->getLanguage();
 
+	}
 
+	public function getLanguageKey($langKey , $lang)
+	{
+		// foreach($_SESSION['xmlstr']->language[0] as $key_lang)
+		// {
+		// 	echo $key_lang;
+		// 	echo "<br>";
+		// }
+
+		if (strtoupper($lang) == "ENG")
+			$xmlstr  = simplexml_load_file("http://localhost/social_net/config/lang_eng.xml");
+		else
+			$xmlstr  = simplexml_load_file("http://localhost/social_net/config/lang_spa.xml");
+
+		return $xmlstr->language[0]->$langKey;
 	}
 
 

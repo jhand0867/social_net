@@ -1,14 +1,24 @@
 <?php 
-	
-$lang = "spa";
+//language_handler.php
+
+//include 'chromephp/ChromePhp.php';
+
+
+    
+//ChromePhp::warn('something went wrong!');
+ 	
+$lang = "eng";
 
 if ($lang == "eng")
-	include("../config/lang_eng.php");
+	$_SESSION['xmlstr']  = simplexml_load_file("../config/lang_eng.xml");
 else
-	include("../config/lang_spa.php");
+	$_SESSION['xmlstr']  = simplexml_load_file("../config/lang_spa.xml");
 
-var_dump($xmlstr);
+//ChromePhp::log($xmlstr);
 
 
 
- ?>
+
+
+
+?>
