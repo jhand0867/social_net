@@ -120,7 +120,7 @@ if(isset($_POST['respond_request']))
 				style="width: 95%;height: 35px;margin: 7px 0 0 7px;color: #fff;border: none;
 				border-radius: 5px;" value="Post to User">
 	</div>
-	<img src="">
+	<img src=""> <a href=""></a>
 	<div class="profile_friends_column column">
 			<?php 
 				if($username != $loggedUsername)
@@ -128,22 +128,38 @@ if(isset($_POST['respond_request']))
 					// this is not logged user profile page
 
 					$friends = $profile_user->getMutualFriends($loggedUsername);
-					foreach ($friends as $f) {
+
+					foreach ($friends as $f) 
+					{
 					 	$user_obj = new User($con , $f);
-					 	echo "<div class='post_profile_pic'> <img src='" . $user_obj->getPic() . "'></div>";
-					 } 
+					 	echo "<div class='post_profile_pic'> 
+					 			<img src='" . $user_obj->getPic() . "'>
+					 			<a href='" .$user_obj->getUsername() ."'><br>" 
+					 			.$user_obj->getFirstname() ."&nbsp;".$user_obj->getLastname() . "</a>
+					 		  </div>";
+					} 
+					  	echo "<div class='friend_list'>
+					 			<div>Common Friends</div> <div><a href='#'>List All</a></div> 
+					 			</div>";
 				}
 				else
 				{
-					// this is not logged user profile page
+					// this is logged user profile page
 
 					$user = new User($con , $loggedUsername);
 					$friends = $user->getMutualFriends($loggedUsername);
-					foreach ($friends as $f) {
+					foreach ($friends as $f) 
+					{
 					 	$user_obj = new User($con , $f);
-					 	echo "<img src='" . $user_obj->getPic() . "'>";
+					 	echo "<div class='post_profile_pic'> 
+					 			<img src='" . $user_obj->getPic() . "'>
+					 			<a href='" . $user_obj->getUsername() . "'><br>" 
+					 			.$user_obj->getFirstname() ."&nbsp;".$user_obj->getLastname() . "</a>
+					 		  </div>";
 					 } 
-
+					 echo "	<div class='friend_list'>
+					 			<div>My Friends</div> <div><a href='#'>List All</a></div> 
+					 			</div>";
 				}
 
 			 ?>

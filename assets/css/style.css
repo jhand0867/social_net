@@ -361,8 +361,21 @@ textarea: focus{
 }
 
 .profile_friends_column img {
-	width: 77px;
+	width: 100px;
     margin: 0px 6px 6px 3px;
     border: none;
-    border-radius: 5px;}
+    border-radius: 5px;
+    position: relative;
+}
+
+.post_profile_pic a {
+	font-family: arial,sans-serif;
+	font-size: 14;
+	text-decoration: none;
+	color: #000;
+	text-align: center;
+}
+
+.friend_list {
+	
 }
