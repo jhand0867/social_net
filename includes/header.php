@@ -1,8 +1,9 @@
 <?php 
 require "config/config.php";
 require "assets/classes/Utils.php";
-require 'assets/classes/User.php';
-require 'assets/classes/Post.php';
+require "assets/classes/User.php";
+require "assets/classes/Post.php";
+require "assets/classes/Message.php";
 
 // require "includes/global_utils.php";
 /* Create a trace file in '/tmp/client.trace' on the local (client) machine: */
@@ -46,7 +47,7 @@ else
 				<? echo $user['first_name'] ?>
 			</a>
 			<a href="index.php"><i class="fa fa-home fa-lg" aria-hidden="true"></i></a>
-			<a href="#"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a>
+			<a href="messages.php"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a>
 			<a href="#"><i class="fa fa-bell fa-lg" aria-hidden="true"></i></a>
 			<a href="request.php"><i class="fa fa-users fa-lg" aria-hidden="true"></i></a>
 			<a href="#"><i class="fa fa-cog fa-lg" aria-hidden="true"></i></a>

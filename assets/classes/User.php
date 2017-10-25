@@ -104,6 +104,15 @@ class User
 		return $this->user['profile_pic'];
 	}
 
+	public function updatePic($newPic , $username)
+	{
+		$user_query = mysqli_query($this->conn ,
+			"UPDATE soc_users 
+			SET profile_pic='$newPic' 
+			WHERE username='$username'");
+		$this->user['profile_pic'] = $newPic;
+	}
+
 	public function isFriend($username_to_check)
 	{
 		$match_username = "," . $username_to_check . ",";
