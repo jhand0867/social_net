@@ -145,7 +145,9 @@ if (isset($_POST['x'])){
 		$result_path ="assets/images/profile_pics/".$finalname."n.jpeg";
 
 		//Insert image into database
-		$insert_pic_query = mysqli_query($con, "UPDATE users SET profile_pic='$result_path' WHERE username='$userLoggedIn'");
+		$user_obj = new User($con , $profile_id);
+		$userLoggedIn = $user_obj->getUsername();
+		$user_obj->updatePic($result_path , $userLoggedIn);
 		header("Location: ".$userLoggedIn);
 														
 }// post x
