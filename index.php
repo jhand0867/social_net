@@ -25,8 +25,6 @@ $lang = $U->selectLanguage($con , $user['username']);
 
 //echo "starting.. <br>";
 
-session_unset();
-
 
 
 if(isset($_POST['post_button']))

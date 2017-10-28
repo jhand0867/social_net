@@ -4,10 +4,6 @@ $(document).ready(function(){
 	// on click of signup hide login, show registration
 	$("#signup").click(function(){
 		$("#first").slideUp("slow" , function(){
-			$("#fname").val("");
-			$("#lname").val("");
-			$("#email").val("");
-			$("#email1").val("");
 			$("#second").slideDown("slow");
 		});
 	});

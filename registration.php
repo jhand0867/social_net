@@ -2,12 +2,6 @@
 require 'config/config.php';
 require 'includes/form_handlers/registration_handler.php';
 require 'includes/form_handlers/login_handler.php';
-//ob_start(); // start buffering
-// set a new session
-session_start();
-session_regenerate_id();
-$new_sessionid = session_id();
-
 ?>
 
 <html>
@@ -57,18 +51,18 @@ $new_sessionid = session_id();
             </div>
             <div id="second">
             	<form action="registration.php" method="POST">
-                    <input type="text" name="reg_fname" id="fname" required placeholder="First Name"
+                    <input type="text" name="reg_fname" required placeholder="First Name"
                     value="<?
-                    if (isset($_POST['reg_fname']))
+                    if (isset($_SESSION['reg_fname']))
                     {
-                        echo $_POST['reg_fname'];
+                        echo $_SESSION['reg_fname'];
                     }
                      ?>">
                     <br>
                     <?if(in_array("First name must be between 2 and 25 characters <br>", $error_array)) 
                          echo "First name must be between 2 and 25 characters <br>"; ?>
                     
-                    <input type="text" name="reg_lname" id="lname" required placeholder="Last Name"
+                    <input type="text" name="reg_lname" required placeholder="Last Name"
                     value="<?
                     if (isset($_SESSION['reg_lname']))
                     {
@@ -79,7 +73,7 @@ $new_sessionid = session_id();
                     <?if(in_array("Last name must be between 2 and 25 characters <br>", $error_array)) 
                          echo "Last name must be between 2 and 25 characters <br>"; ?>
                     
-                    <input type="email" name="reg_email" id="email" required placeholder="Email"
+                    <input type="email" name="reg_email" required placeholder="Email"
                     value="<?
                     if (isset($_SESSION['reg_email']))
                     {
@@ -89,7 +83,7 @@ $new_sessionid = session_id();
                     <br>
                     <?if(in_array("Invalid e-mail format <br>", $error_array)) echo "Invalida e-mail format <br>"; ?>
                     
-                    <input type="email" name="reg_email1" id="email1" required placeholder="Confirm Email"
+                    <input type="email" name="reg_email1" required placeholder="Confirm Email"
                     value="<?
                     if (isset($_SESSION['reg_email1']))
                     {
@@ -101,9 +95,9 @@ $new_sessionid = session_id();
                       else if(in_array("Invalid e-mail format <br>", $error_array)) echo "Invalida e-mail format <br>"; 
                       else if(in_array("E-mail already in use <br>", $error_array)) echo "E-mail already in use <br>"; ?>
                 
-                    <input type="password" name="reg_password" id="password" required placeholder="Password">
+                    <input type="password" name="reg_password" required placeholder="Password">
                     <br>
-                    <input type="password" name="reg_password1" id="password1" required placeholder="Confirm Password">
+                    <input type="password" name="reg_password1" required placeholder="Confirm Password">
                     <br>
                     <?if(in_array("Password don't match <br>", $error_array)) echo "Password don't match <br>"; 
                       else if(in_array("Password can only contain English characters and numbers <br>", $error_array)) 
@@ -115,12 +109,6 @@ $new_sessionid = session_id();
                     <?if(in_array("<span style='color: #14C800'>You're all set! <br> Go ahead and log in.</span><br>", 
                     $error_array)) echo "<span style='color: #14C800'>You're all set! <br> Go ahead and log in.</span><br>"; ?>
                     <a href="#" id="signin" class="signin">Already a member? Sing in here!</a>
-                    <?/*
-                        while ( $i <= 100000) {
-                            $i++;
-                        }
-                        header("Location: registration.php");
-                    */?>
                     
             	</form>
             </div>
