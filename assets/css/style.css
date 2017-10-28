@@ -385,8 +385,63 @@ textarea: focus{
 
 .loaded_messages {
 	margin-top: 20px;
-	width: 75%;
-    min-height: 200px;
-    float: right;
+    width: 99%;
+    min-height: 300px;
+    max-height: 400px;
+    overflow: scroll;
     z-index: -1;
+}
+
+#msg_textarea {
+	width: 76%;
+	margin-left: 5px;
+	min-height: 50px;
+	border-radius: 5px;
+	font-size: 14;
+}
+
+#msg_submit {
+	border: none;
+    background-color: #0daae6;
+    font-family: 'Bellota-BoldItalic', sans-serif;
+    color: #fff;
+    box-shadow: 2px 2px 2px #1e3348;
+    border-radius: 5px;
+    width: 16%;
+    height: 48px;
+    margin: 0;
+    position: absolute;	
+}
+
+.tr_empty {
+	height: 15px;
+}
+td {
+	padding-right: 30px;
+	height: 38px;
+
+}
+
+
+.pic_row {
+	width:30px; 
+	border-radius:5px;
+}
+
+.msg_send {
+	background-color: #28a745;
+	border: none;
+	border-radius: 7px;
+	width: 40%;
+	min-width: 380px;
+	max-width: 400px;
+}
+
+.msg_receive {
+	background-color: #ffc107;
+	border: none;
+	border-radius: 7px;
+	width: 40%;
+	min-width: 380px;
+	max-width: 400px;
 }

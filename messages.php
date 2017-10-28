@@ -26,6 +26,7 @@ if (isset($_POST['post_msg']))
 
 		$date = date("Y-m-d H:i:s");
 		$message_obj->sendMessage($user_to,$body,$date);
+		$_POST['msg_body'] = "";
 	}
 }
 
@@ -68,7 +69,7 @@ if ($user_to != 'new')
 	else
 	{
 		echo "<textarea name='msg_body' id='msg_textarea' placeholder='Type your message..'></textarea>";
-		echo "<input type='submit' class='info' name='post_msg' id='msg_submit' value='Send Message'>";
+		echo "<input type='submit' class='info' name='post_msg' id='msg_submit' value='Send'>";
 	}
 	?>
 	</form>
@@ -78,25 +79,32 @@ if ($user_to != 'new')
 	$messages = $message_obj->getMessages($user_to);
 	?>
 	<div class="container">
-		<table class="table">
-			<thead>
-				<tr>
-				<!--	<th>Message From</th> -->
-					<th>Message</th>
-					<th>Date</th>
-					<th>Delete</th>
-				</tr>
-			</thead>
-			<tbody>
-	<?
+		<table class="table-hover">
+			<tbody> 
+	<? 
 	foreach ($messages as $row) 
 	{
 		echo "<tr>";
-		//echo "<td>" . $row['msg_user_from'] . "</td>";
-		echo "<td>" . $row['msg_body'] . "</td>"; 
-		echo "<td>" . $row['msg_date'] . "</td>";
-		echo "<td><a href='#'>Delete</a></td>";
-		echo "</tr>";
+		if ($loggedUsername == $row['msg_user_to'])
+		{
+			$user = new User($con , $row['msg_user_to']);
+			echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+			echo "<td class='msg_send'>" . $row['msg_body'] . "</td>"; 
+			echo "<td></td>";
+			echo "<td></td>";
+			echo "</tr>";
+			echo "<tr class='tr_empty'></tr>";
+		}
+		else
+		{
+			$user = new User($con , $row['msg_user_to']);
+			echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+			echo "<td></td>";
+			echo "<td></td>";
+			echo "<td class='msg_receive'>" . $row['msg_body'] . "</td>"; 
+			echo "</tr>";			
+			echo "<tr class='tr_empty'></tr>";
+		}
 	}
 	//print_r ($message_obj->getMessages($user_to));
 ?>

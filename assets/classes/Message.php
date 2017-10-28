@@ -46,6 +46,7 @@ class Message
 
 	public function sendMessage($user, $msg, $date)
 	{
+		echo "in sendMessage, $msg ";
 		if ($msg != '')
 		{
 			$loggedInUser = $this->user_obj->getUsername();
@@ -58,12 +59,22 @@ class Message
 
 	public function getMessages($user)
 	{
+		$loggedInUser = $this->user_obj->getUsername();
+
+		// udate opened flag 
 		$msg_qry = mysqli_query($this->conn ,
+			"UPDATE soc_messages
+			 SET msg_opened = 'yes' 
+			 WHERE msg_user_to = '$loggedInUser' AND msg_user_from = '$user'");
+
+		$msg_qry1 = mysqli_query($this->conn ,
 			"SELECT * 
 			 FROM soc_messages
-			 WHERE msg_user_to = '$user' AND msg_deleted = 'no'");
-		if (mysqli_num_rows($msg_qry) > 0)
-			$messages = mysqli_fetch_all($msg_qry, MYSQL_ASSOC);
+			 WHERE ((msg_user_to = '$loggedInUser' AND msg_user_from = '$user') 
+			 OR (msg_user_from = '$loggedInUser' AND msg_user_to = '$user')) AND msg_deleted = 'no'
+			 ORDER BY msg_date DESC");
+		if (mysqli_num_rows($msg_qry1) > 0)
+			$messages = mysqli_fetch_all($msg_qry1, MYSQL_ASSOC);
 		else
 			$messages = "none";
 
