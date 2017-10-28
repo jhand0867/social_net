@@ -1,12 +1,13 @@
+
 <?php
 // error control vars
-$fname = ""; // first name
-$lname = ""; // last name
-$em = ""; // email
-$em1 = ""; // email compare
-$pwd = ""; // password
-$pwd1 = ""; // password compare
-$date = ""; // registration date
+//$fname = ""; // first name
+//$lname = ""; // last name
+//$em = ""; // email
+//$em1 = ""; // email compare
+//$pwd = ""; // password
+//$pwd1 = ""; // password compare
+//$date = ""; // registration date
 $error_array = array(); // error messages
 
 if( isset($_POST['reg_button']))
@@ -135,6 +136,18 @@ if( isset($_POST['reg_button']))
         $_SESSION['$lname']="";
         $_SESSION['$em']="";
         $_SESSION['$em1']="";
+        $_POST['$fname']="";
+        $_POST['$lname']="";
+        $_POST['$em']="";
+        $_POST['$em1']="";
+        $fname = "";
+        $lname = "";
+        $email = "";
+        $email1= "";
+        $password = "";
+        $password1 = "";
+
+
 
     }
 
