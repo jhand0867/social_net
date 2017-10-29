@@ -17,7 +17,12 @@ $lang = $U->selectLanguage($con , $user['username']);
 
 //print_r($_SESSION);
 
-//echo "language set as " . $lang;
+echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    session_id " . session_id();
+
+$S = new Session($con);
+$_SESSION['S']=$S;
+
+ChromePhp::log($S);
 
 //session_destroy();
 
