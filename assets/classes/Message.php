@@ -46,7 +46,7 @@ class Message
 
 	public function sendMessage($user, $msg, $date)
 	{
-		echo "in sendMessage, $msg ";
+		//echo "in sendMessage, $msg ";
 		if ($msg != '')
 		{
 			$loggedInUser = $this->user_obj->getUsername();

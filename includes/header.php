@@ -1,9 +1,11 @@
 <?php 
 require "config/config.php";
+require "assets/classes/Session.php";
 require "assets/classes/Utils.php";
 require "assets/classes/User.php";
 require "assets/classes/Post.php";
 require "assets/classes/Message.php";
+
 
 // require "includes/global_utils.php";
 /* Create a trace file in '/tmp/client.trace' on the local (client) machine: */

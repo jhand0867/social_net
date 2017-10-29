@@ -27,6 +27,9 @@ if (isset($_POST['post_msg']))
 		$date = date("Y-m-d H:i:s");
 		$message_obj->sendMessage($user_to,$body,$date);
 		$_POST['msg_body'] = "";
+		//$user_to = "";
+		$body = "";
+		$date = "";
 	}
 }
 
@@ -50,6 +53,48 @@ if (isset($_POST['post_msg']))
 		?>
 	</div>
 </div>
+
+<div class="user_chats column">
+<?
+	$S = new Session($con);
+	$active_users = $S->getActiveSessions($con);
+	
+	$user_obj = new User($con , $user['username']);
+
+	// find if frieds are in session
+
+	foreach ($active_users as $rec) {
+
+		print_r($rec);
+
+		if ($user_obj->isFriend($rec))
+		{
+			$friend_user = new User($con , $rec);
+			echo "<div class='pic_row'>
+				<img src='".$friend_user->getPic()."'>
+		    </div>";
+
+		}	
+	}
+
+?>
+<!--	<a href="<? echo $user['username']; ?>">
+		<img src="<? echo $user['profile_pic'] ?>">
+	</a>
+	<div class="user_details_left_right">
+		
+		<a href=" <? echo $user['username']; ?> ">
+		<?
+			echo $user['first_name'] . "<br>"; 
+		?>
+		</a>
+		<?
+			echo $U->getLanguageKey("key_lbl_post_1",$lang). ":"  . $user['num_posts'] . "<br>" ;
+			echo $U->getLanguageKey("key_lbl_like_1",$lang). ":"  . $user['num_likes'];
+		?>
+	</div> -->
+</div>
+
 <div class="main_column column" id="main_column">
 <?
 
