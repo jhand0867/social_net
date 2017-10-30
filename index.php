@@ -3,7 +3,7 @@
 // index.php
 
 require 'includes/header.php';
-require 'includes/chromephp/ChromePhp.php';
+require_once('includes/chromephp/ChromePhp.php');
 
 // verify user preferred_lang
 

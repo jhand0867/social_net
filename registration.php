@@ -15,6 +15,16 @@ require 'includes/form_handlers/login_handler.php';
 <?php
     if(isset($_POST['reg_button']))
     {
+/*        session_destroy();
+        // clear form fields
+        $_SESSION['$fname']="";
+        $_SESSION['$lname']="";
+        $_SESSION['$em']="";
+        $_SESSION['$em1']="";
+*/
+
+
+        
         echo '<script type="text/javascript">
          $(document).ready(function(){
             $("#first").hide();

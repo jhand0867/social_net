@@ -1,6 +1,6 @@
 <?php 
 // Session.php
-//include "includes/chromephp/ChromePhp.php";
+require_once("includes/chromephp/ChromePhp.php");
 
 class Session
 {

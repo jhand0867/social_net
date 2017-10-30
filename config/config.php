@@ -3,7 +3,7 @@ ob_start(); // start buffering
 // set a new session
 session_start();
 session_regenerate_id();
-$new_sessionid = session_id();
+$sessionid = session_id();
 
 $timezone = date_default_timezone_set("America/New_York");
 

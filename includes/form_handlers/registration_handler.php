@@ -130,13 +130,14 @@ if( isset($_POST['reg_button']))
         // horra!! message
         array_push($error_array,"<span style='color: #14C800'>You're all set! <br> Go ahead and log in.</span><br>");
 
+    }
         // clear form fields
         $_SESSION['$fname']="";
         $_SESSION['$lname']="";
         $_SESSION['$em']="";
         $_SESSION['$em1']="";
 
-    }
+
 
 }
 
