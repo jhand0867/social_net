@@ -9,7 +9,7 @@ $lang = $U->selectLanguage($con , $user['username']);
 $message_obj = new Message($con , $loggedUsername);
 if (isset($_GET['u']))
 	$user_to = $_GET['u'];
-else
+else 
 {
 	$user_to = $message_obj->getMostRecentUser();
 	if ($user_to == 'false')
