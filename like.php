@@ -93,7 +93,7 @@ if ( $num_rows > 0 )
 {
 	// if there are likes show unlike button
 	echo '<form action="like.php?post_id=' . $post_id . '" method="POST" >
-			<input type="submit" class="comment_like" name="unlike_button" value="Unlike">
+			<input type="submit" class="comment_like" name="unlike_button" value="Unlike&nbsp;&nbsp;&nbsp;&nbsp;">
 			<div class="likes_value">
 				' . $total_likes . ' Likes
 			</div>
@@ -103,7 +103,7 @@ else
 {
 	// if there are likes show unlike button
 	echo '<form action="like.php?post_id=' . $post_id . '" method="POST" >
-			<input type="submit" class="comment_like" name="like_button" value="Like">
+			<input type="submit" class="comment_like" name="like_button" value="Like&nbsp;&nbsp;&nbsp;&nbsp;">
 			<div class="likes_value">
 				' . $total_likes . ' Likes
 			</div>
