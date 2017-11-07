@@ -26,3 +26,9 @@ $lang = $U->selectLanguage($con , $user['username']);
 		?>
 	</div>
 </div>
+
+<div class="main_column column">
+
+
+
+</div>
