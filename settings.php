@@ -29,6 +29,6 @@ $lang = $U->selectLanguage($con , $user['username']);
 
 <div class="main_column column">
 
-
+   <p class="title_1">Member Settings</p>
 
 </div>
