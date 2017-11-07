@@ -73,19 +73,21 @@ class Session
 	public function getActiveSessions( $connection )
 	{
 		$rows = "none";
-		ChromePhp::log("SELECT username, login_date_time 
-			 FROM soc_log
-			 WHERE logout_date_time='' ");
+		//ChromePhp::log("SELECT username, login_date_time 
+		//	 FROM soc_log
+		//	 WHERE logout_date_time='0000-00-00 00:00:00' ");
 
 
 		$log_sessions = mysqli_query( $connection ,
 			"SELECT username, login_date_time 
 			 FROM soc_log
-			 WHERE logout_date_time='' ");
+			 WHERE logout_date_time='0000-00-00 00:00:00' ");
+		//ChromePhp::log(mysqli_num_rows($log_sessions));
 		if (mysqli_num_rows($log_sessions) > 0)
 		{
-			$rows = mysqli_fetch_array($log_sessions, MYSQL_ASSOC);
+			$rows = mysqli_fetch_all($log_sessions, MYSQL_ASSOC);
 		}
+		//ChromePhp::log($rows);
 		return $rows;
 	}
 }

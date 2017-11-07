@@ -52,7 +52,7 @@ else
 			<a href="messages.php"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a>
 			<a href="#"><i class="fa fa-bell fa-lg" aria-hidden="true"></i></a>
 			<a href="request.php"><i class="fa fa-users fa-lg" aria-hidden="true"></i></a>
-			<a href="#"><i class="fa fa-cog fa-lg" aria-hidden="true"></i></a>
+			<a href="settings.php"><i class="fa fa-cog fa-lg" aria-hidden="true"></i></a>
 			<a href="includes/handlers/logout.php"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i></a>
 		</nav>
 	</div>
