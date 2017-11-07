@@ -55,6 +55,8 @@ if (isset($_POST['post_msg']))
 </div>
 
 <div class="user_chats column">
+	<p class="title_1">Active Users</p>
+	<div class="active_users">
 <?
 	$S = new Session($con);
 	$active_users = $S->getActiveSessions($con);
@@ -65,8 +67,6 @@ if (isset($_POST['post_msg']))
 
 	foreach ($active_users as $rec) {
 
-		// print_r($rec);
-
 		if ($user_obj->isFriend($rec['username']))
 		{
 			if ($user['username'] <> $rec['username']) {
@@ -76,9 +76,9 @@ if (isset($_POST['post_msg']))
 			    </div>
 			    <div class='msg_active_users_details'>". 
 			    $friend_user->getFirstAndLastName() . "<br>" .
-			    " Logged in " .
+			    "<p class='title_2'>Logged in" .
 			    $U->postInterval($rec['login_date_time']) .
-			    "</div>";
+			    "</p></div>";
 	
 			echo "<hr>";
 			}		
@@ -101,6 +101,7 @@ if (isset($_POST['post_msg']))
 			echo $U->getLanguageKey("key_lbl_like_1",$lang). ":"  . $user['num_likes'];
 		?>
 	</div> -->
+</div>
 </div>
 
 <div class="main_column column" id="main_column">
