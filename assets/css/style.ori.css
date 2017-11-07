@@ -424,31 +424,8 @@ td {
 
 
 .pic_row {
-	width:50px; 
+	width:30px; 
 	border-radius:5px;
-}
-
-
-.msg_active_pics {
-    width: 50%;
-    margin-left: 4px;
-    padding-bottom: 5px;
-}
-
-.msg_active_pics img {
-	width: 35px;
-	border-radius:5px;
-	float: left;
-}
-
-.msg_active_users_details{
-	font-size: 10;
-    width: 50%;
-    border-radius: 5px;
-    text-align: left;
-    margin-left: 50px;
-}
-
 }
 
 .msg_send {
@@ -473,7 +450,10 @@ td {
     width: 250px;
     margin-top: 150px;
     position: absolute;
-    height: 600px;
+}
+
+.active_users {
     max-height: 700px;
-    overflow: scroll;
+    min-height: 300px;
+    overflow: scroll;	
 }

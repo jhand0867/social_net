@@ -56,34 +56,33 @@ if (isset($_POST['post_msg']))
 
 <div class="user_chats column">
 <?
+	echo "<p class='title_lev_2'>Active Users</p>";
 	$S = new Session($con);
 	$active_users = $S->getActiveSessions($con);
-	
+	//var_dump($active_users);
 	$user_obj = new User($con , $user['username']);
 
 	// find if frieds are in session
 
+	$friend_list = $user_obj->getFriendsArray();
+
+	// active session
+
+	echo "<div class='active_users'>";
 	foreach ($active_users as $rec) {
 
-		// print_r($rec);
+		//echo $rec['username'] . "<BR>";
 
 		if ($user_obj->isFriend($rec['username']))
 		{
-			if ($user['username'] <> $rec['username']) {
-				$friend_user = new User($con , $rec['username']);
-				echo "<div class='msg_active_pics'>
-		 		<img src='".$friend_user->getPic()."'>
-			    </div>
-			    <div class='msg_active_users_details'>". 
-			    $friend_user->getFirstAndLastName() . "<br>" .
-			    " Logged in " .
-			    $U->postInterval($rec['login_date_time']) .
-			    "</div>";
-	
-			echo "<hr>";
-			}		
-		}}	
-		
+			$friend_user = new User($con , $rec['username']);
+			echo "<div class='pic_row'>
+				<img src='".$friend_user->getPic()."'>
+		    </div>";
+
+		}	
+	}
+	echo "</div>";
 
 ?>
 <!--	<a href="<? echo $user['username']; ?>">
@@ -123,47 +122,51 @@ if ($user_to != 'new')
 	{
 		echo "<textarea name='msg_body' id='msg_textarea' placeholder='Type your message..'></textarea>";
 		echo "<input type='submit' class='info' name='post_msg' id='msg_submit' value='Send'>";
-	}
+	//}
 	?>
-	</form>
-</div>
-<?
-	echo "<div class='loaded_messages'>";
-	$messages = $message_obj->getMessages($user_to);
-	?>
-	<div class="container">
-		<table class="table-hover">
-			<tbody> 
-	<? 
-	foreach ($messages as $row) 
-	{
-		echo "<tr>";
-		if ($loggedUsername == $row['msg_user_to'])
-		{
-			$user = new User($con , $row['msg_user_to']);
-			echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
-			echo "<td class='msg_send'>" . $row['msg_body'] . "</td>"; 
-			echo "<td></td>";
-			echo "<td></td>";
-			echo "</tr>";
-			echo "<tr class='tr_empty'></tr>";
-		}
-		else
-		{
-			$user = new User($con , $row['msg_user_to']);
-			echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
-			echo "<td></td>";
-			echo "<td></td>";
-			echo "<td class='msg_receive'>" . $row['msg_body'] . "</td>"; 
-			echo "</tr>";			
-			echo "<tr class='tr_empty'></tr>";
-		}
-	}
-	//print_r ($message_obj->getMessages($user_to));
-?>
-			</tbody>
-		</table>
-	</div>
-</div>
+			</form>
+		</div>
+		<?
+			echo "<div class='loaded_messages'>";
+			$messages = $message_obj->getMessages($user_to);
+			?>
+			<div class="container">
+				<table class="table-hover">
+					<tbody> 
+			<? 
+			
+			foreach ($messages as $row) 
+			{
+				echo "<tr>";
+				if ($loggedUsername == $row['msg_user_to'])
+				{
+					$user = new User($con , $row['msg_user_to']);
+					echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+					echo "<td class='msg_send'>" . $row['msg_body'] . "</td>"; 
+					echo "<td></td>";
+					echo "<td></td>";
+					echo "</tr>";
+					echo "<tr class='tr_empty'></tr>";
+				}
+				else
+				{
+					$user = new User($con , $row['msg_user_to']);
+					echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+					echo "<td></td>";
+					echo "<td></td>";
+					echo "<td class='msg_receive'>" . $row['msg_body'] . "</td>"; 
+					echo "</tr>";			
+					echo "<tr class='tr_empty'></tr>";
+				}
+			}
+			//print_r ($message_obj->getMessages($user_to));
+		?>
+					</tbody>
+				</table>
+			</div>
+		</div>
 
-</div>
+		</div>
+	<?
+	}
+	?>

@@ -6,8 +6,6 @@ $em = ""; // email
 $em1 = ""; // email compare
 $pwd = ""; // password
 $pwd1 = ""; // password compare
-$gender = "N"; // Gender
-$lang = ""; // preferred language
 $date = ""; // registration date
 $error_array = array(); // error messages
 
@@ -36,13 +34,6 @@ if( isset($_POST['reg_button']))
     $pwd = strip_tags($_POST['reg_password']);  // clean tags
 
     $pwd1 = strip_tags($_POST['reg_password1']);  // clean tags
-
-    $lang = $_POST['reg_language'];
-
-    if(isset($_POST['reg_gender']))
-    {
-        $gender = $_POST['reg_gender'];
-    }
 
     $date = date("Y-m-d");
 
@@ -132,20 +123,21 @@ if( isset($_POST['reg_button']))
         // add user to database
         $add_user_query = mysqli_query($con , "INSERT INTO soc_users (id,
                           first_name, last_name, username, password, email, signup_date, 
-                          profile_pic, num_posts, num_likes, user_closed, friends_array, preferred_lang, gender)
+                          profile_pic, num_posts, num_likes, user_closed, friends_array)
                           VALUES ('', '$fname' , '$lname' , '$username' , '$pwd' , '$em' , '$date',
-                          '$profile_pic' , '0' , '0' , 'no' , ',' , '$lang' , '$gender')");
+                          '$profile_pic' , '0' , '0' , 'no' , ',')");
 
         // horra!! message
         array_push($error_array,"<span style='color: #14C800'>You're all set! <br> Go ahead and log in.</span><br>");
 
-        // clear form fields
-        
-        session_unset();
-        //header("Location: registration.php");
-
-
     }
+        // clear form fields
+        $_SESSION['$fname']="";
+        $_SESSION['$lname']="";
+        $_SESSION['$em']="";
+        $_SESSION['$em1']="";
+
+
 
 }
 

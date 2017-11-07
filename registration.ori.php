@@ -15,6 +15,16 @@ require 'includes/form_handlers/login_handler.php';
 <?php
     if(isset($_POST['reg_button']))
     {
+/*        session_destroy();
+        // clear form fields
+        $_SESSION['$fname']="";
+        $_SESSION['$lname']="";
+        $_SESSION['$em']="";
+        $_SESSION['$em1']="";
+*/
+
+
+        
         echo '<script type="text/javascript">
          $(document).ready(function(){
             $("#first").hide();
@@ -104,25 +114,10 @@ require 'includes/form_handlers/login_handler.php';
                         echo "Password can only contain English characters and numbers <br>"; 
                       else if(in_array("Password must be between 5 and 30 characters <br>", $error_array)) 
                         echo "Password must be between 5 and 30 characters <br>"; ?>
-
-                    <select name="reg_language">
-                        <option value="ENG">Preferred Language</option>
-                        <option value="SPA">Spanish</option>
-                        <option value="ENG">English</option></select>
-                    <br>
-
-                    <div class="sel_gender">
-                    <input type="radio" name="reg_gender" value="M">Male
-                    <input type="radio" name="reg_gender" value="F">Female
-                    </div>
-                    <br><br>
-
-
                     <input type="submit" name="reg_button" value="Register">
                     <br>
                     <?if(in_array("<span style='color: #14C800'>You're all set! <br> Go ahead and log in.</span><br>", 
-                    $error_array)) echo "<span style='color: #14C800'>You're all set! <br> Go ahead and log in.</span><br>";
-                    unset($_POST['reg_button'])?>
+                    $error_array)) echo "<span style='color: #14C800'>You're all set! <br> Go ahead and log in.</span><br>"; ?>
                     <a href="#" id="signin" class="signin">Already a member? Sing in here!</a>
                     
             	</form>
