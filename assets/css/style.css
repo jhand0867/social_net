@@ -222,14 +222,9 @@ textarea: focus{
 }
 
 .newsfeedPostOptions iframe {
-	border: 0;
+	border: 0px;
     height: 17px;
     width: 120px;
-}
-
-.newsfeedPostOptions form {
-	top: 10px;
-    position: absolute;"
 }
 
 .comment_like {
@@ -244,7 +239,254 @@ textarea: focus{
 }
 
 .likes_value {
-	color: #06f;
+	color: #000;
     display: inline;
     font-size: 14;
+}
+
+.profile_left {
+	position: relative;
+	float: left;
+    top: -10px;
+    width: 17%;
+    max-width: 240px;
+    min-width: 130px;
+    height: 100%;
+    color: #fff;
+    background-color: #0faae5;
+}
+
+.profile_left img {
+    border-radius: 100%;
+    margin: 30px;
+    border: 5px solid;
+    min-width: 80px;
+    width: 55%;
+ }
+
+.profile_info{
+    background-color: #2a80b4;
+    width: 90%;
+    margin-left: 8px;
+    padding: 4px;
+    font-size: 17;
+    padding: 10px 0 10px 0;
+}
+
+.profile_info p {
+	margin: 0 0 0 20px;
+	word-wrap: break-word;
+}
+
+.profile_main_column{
+	min-width: 675px;
+    min-height: 200px;
+    float: left;
+    width: 70px;
+    margin: 5px 10px 10px 10px;
+    z-index: -1;
+}
+
+.profile_friends_column {
+	min-width: 675px;
+    min-height: 172px;
+    float: left;
+    width: 40px;
+    margin: 5px 10px 10px 10px;
+    z-index: -1;
+
+}
+
+.danger {
+	background-color: #e74c3c;
+}
+
+.warning {
+	background-color: #a0fd4e;
+}
+
+.default {
+	background-color: #dbc3c7;
+}
+
+.success {
+	background-color: #2ecc71;
+}
+
+.info {
+	background-color: #3498db;
+}
+
+.deep_blue {
+	background-color: #0043f0;
+}
+
+.profile_left input["submit"] {
+	width: 90%;
+	height: 35px;
+	margin: 7px 0 0 7px;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+}
+
+#accept_button {
+	width: 20%;
+    height: 34px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 5px 10px 5px;
+}
+
+#ignore_button {
+	width: 20%;
+    height: 34px;
+    color: #fff;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 5px 10px 5px;
+}
+
+.btn-danger {
+	color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    width: 10%;
+    font-size: 14;
+    border-radius: 7px;
+    margin: 1px 10px 1px 10px;
+}
+
+.profile_friends_column img {
+	width: 100px;
+    margin: 0px 6px 6px 3px;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+}
+
+.post_profile_pic a {
+	font-family: arial,sans-serif;
+	font-size: 14;
+	text-decoration: none;
+	color: #000;
+	text-align: center;
+}
+
+.friend_list {
+	text-align: center;
+    background-color: #0faae5;
+    font-size: 17;
+    margin-top: 124px;
+}
+
+.loaded_messages {
+	margin-top: 20px;
+    width: 99%;
+    min-height: 300px;
+    max-height: 400px;
+    overflow: scroll;
+    z-index: -1;
+}
+
+#msg_textarea {
+	width: 76%;
+	margin-left: 5px;
+	min-height: 50px;
+	border-radius: 5px;
+	font-size: 14;
+}
+
+#msg_submit {
+	border: none;
+    background-color: #0daae6;
+    font-family: 'Bellota-BoldItalic', sans-serif;
+    color: #fff;
+    box-shadow: 2px 2px 2px #1e3348;
+    border-radius: 5px;
+    width: 16%;
+    height: 48px;
+    margin: 0;
+    position: absolute;	
+}
+
+.tr_empty {
+	height: 15px;
+}
+td {
+	padding-right: 30px;
+	height: 38px;
+
+}
+
+
+.pic_row {
+	width:50px; 
+	border-radius:5px;
+}
+
+
+.msg_active_pics {
+    width: 50%;
+    margin-left: 4px;
+    padding-bottom: 5px;
+}
+
+.msg_active_pics img {
+	width: 35px;
+	border-radius:5px;
+	float: left;
+}
+
+.msg_active_users_details{
+	font-size: 10;
+    width: 50%;
+    border-radius: 5px;
+    text-align: left;
+    margin-left: 50px;
+}
+
+}
+
+.msg_send {
+	background-color: #28a745;
+	border: none;
+	border-radius: 7px;
+	width: 40%;
+	min-width: 380px;
+	max-width: 400px;
+}
+
+.msg_receive {
+	background-color: #ffc107;
+	border: none;
+	border-radius: 7px;
+	width: 40%;
+	min-width: 380px;
+	max-width: 400px;
+}
+
+.user_chats {
+    width: 250px;
+    margin-top: 150px;
+    position: absolute;
+}
+
+.active_users {
+    height: 400px;
+    max-height: 500px;
+    overflow: scroll;	
+    z-index: -1;
+}
+
+.titel_1 {
+	font-size: 12;
+}
+
+.title_2 {
+	font-size: 10;
+	color: #000;
 }

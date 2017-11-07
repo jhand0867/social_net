@@ -3,10 +3,26 @@
 // index.php
 
 require 'includes/header.php';
-//require 'includes/global_utils.php';
-require 'includes/chromephp/ChromePhp.php';
-require 'assets/classes/User.php';
-require 'assets/classes/Post.php';
+require_once('includes/chromephp/ChromePhp.php');
+
+// verify user preferred_lang
+
+
+
+$U = new Utils();
+
+//echo $user['username'];
+
+$lang = $U->selectLanguage($con , $user['username']);
+
+//print_r($_SESSION);
+
+echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    session_id " . session_id();
+
+$S = new Session($con);
+$_SESSION['S']=$S;
+
+ChromePhp::log($S);
 
 //session_destroy();
 
@@ -23,21 +39,24 @@ if(isset($_POST['post_button']))
 }
 
 
+
 ?>
 	<div class="user_details column">
-		<a href="<? echo $user['first_name']; ?>">
+		<a href="<? echo $user['username']; ?>">
 			<img src="<? echo $user['profile_pic'] ?>">
 		</a>
 		<div class="user_details_left_right">
 			<!-- User Details Data -->
-			<a href=" <? echo $user['first_name']; ?> ">
+			<a href=" <? echo $user['username']; ?> ">
 			<?
-				echo $user['first_name'] . "<br>"; // . $user['last_name'];
+				echo $user['first_name'] . "<br>"; 
 			?>
 			</a>
 			<?
-				echo "Posts: " . $user['num_posts'] . "<br>" ;
-				echo "Likes: " . $user['num_likes'];
+				// lbl_post_1
+				// getLangKey("lbl_post_1");
+				echo $U->getLanguageKey("key_lbl_post_1",$lang). ":"  . $user['num_posts'] . "<br>" ;
+				echo $U->getLanguageKey("key_lbl_like_1",$lang). ":"  . $user['num_likes'];
 			?>
 		</div>
 	</div>
