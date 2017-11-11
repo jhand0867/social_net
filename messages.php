@@ -108,19 +108,26 @@ if ($user_to != 'new')
 
 	echo "<h4>You and <a href='$user_to'>" .$user_to_obj->getFirstAndLastName() ."</a></h4><hr><br>";
 ?>
+
 <div class="post_message">
 	<form action="" method="POST">
 	<?
 	if($user_to == "new")
 	{
-		echo "Select the user you would like to send a message<br><br>";
-		echo "To: <input type='text'";
-		echo "<div class='message' id='results'></div>";
+	?>
+		Select the user you would like to send a message
+		<br><br>
+		To: <input type="text" onkeyup="getUsers(this.value, '<? echo $loggedUsername ?>');"
+		name="q" placeholder="Name" autocomplete="off" id="search_text_input">
+		<div class="results" id="results"></div>
+	<?
 	}
 	else
 	{
-		echo "<textarea name='msg_body' id='msg_textarea' placeholder='Type your message..'></textarea>";
-		echo "<input type='submit' class='info' name='post_msg' id='msg_submit' value='Send'>";
+	?>
+		<textarea name="msg_body" id="msg_textarea" placeholder="Type your message.."></textarea>
+		<input type="submit" class="info" name="post_msg" id="msg_submit" value="Send">
+	<?
 	}
 	?>
 	</form>

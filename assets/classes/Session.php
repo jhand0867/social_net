@@ -36,11 +36,6 @@ class Session
 
 		// find session record
 
-		ChromePhp::Log("SELECT * 
-			FROM soc_log
-			WHERE session_id = '$this->session_id' 
-			AND logout_date_time = '0000-00-00 00:00:00' ");
-
 		$session_qry = mysqli_query( $this->connection ,	
 			"SELECT * 
 			FROM soc_log
@@ -50,14 +45,14 @@ class Session
 		{
 			$session_data = mysqli_fetch_array($session_qry);
 			$logupdate = $session_data['log'];
-			$logupdate .=  "/r/nwhat ever....";
+			$logupdate .=  "\r\nwhat ever....";
+		}
+		else
+		{
+			$logupdate = '';
 		}
 		// add comment to log
 
-		ChromePhp::Log("UPDATE soc_log 
-			 SET log = '$logupdate',logout_date_time ='$this->end_timestamp'
-			 WHERE session_id = '$this->session_id' 
-			 AND logout_date_time = '0000-00-00 00:00:00'");
 
 		$session_qry = mysqli_query( $this->connection ,
 			"UPDATE soc_log 
