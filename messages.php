@@ -52,56 +52,53 @@ if (isset($_POST['post_msg']))
 			echo $U->getLanguageKey("key_lbl_like_1",$lang). ":"  . $user['num_likes'];
 		?>
 	</div>
+
 </div>
 
 <div class="user_chats column">
 	<p class="title_1">Active Users</p>
 	<div class="active_users">
-<?
-	$S = new Session($con);
-	$active_users = $S->getActiveSessions($con);
-	
-	$user_obj = new User($con , $user['username']);
+	<?
+		$S = new Session($con);
+		$active_users = $S->getActiveSessions($con);
+		
+		$user_obj = new User($con , $user['username']);
 
-	// find if frieds are in session
+		// find if frieds are in session
 
-	foreach ($active_users as $rec) {
-
-		if ($user_obj->isFriend($rec['username']))
+		foreach ($active_users as $rec) 
 		{
-			if ($user['username'] <> $rec['username']) {
-				$friend_user = new User($con , $rec['username']);
-				echo "<div class='msg_active_pics'>
-		 		<img src='".$friend_user->getPic()."'>
-			    </div>
-			    <div class='msg_active_users_details'>". 
-			    $friend_user->getFirstAndLastName() . "<br>" .
-			    "<p class='title_2'>Logged in" .
-			    $U->postInterval($rec['login_date_time']) .
-			    "</p></div>";
-	
-			echo "<hr>";
-			}		
-		}}	
-		
 
-?>
-<!--	<a href="<? echo $user['username']; ?>">
-		<img src="<? echo $user['profile_pic'] ?>">
-	</a>
-	<div class="user_details_left_right">
-		
-		<a href=" <? echo $user['username']; ?> ">
-		<?
-			echo $user['first_name'] . "<br>"; 
+			if ($user_obj->isFriend($rec['username']))
+			{
+				if ($user['username'] <> $rec['username']) 
+				{
+					$friend_user = new User($con , $rec['username']);
 		?>
-		</a>
-		<?
-			echo $U->getLanguageKey("key_lbl_post_1",$lang). ":"  . $user['num_posts'] . "<br>" ;
-			echo $U->getLanguageKey("key_lbl_like_1",$lang). ":"  . $user['num_likes'];
+
+					<div class="msg_active_pics">
+						<a href="messages.php?u=<?echo $friend_user->getUsername();?>">
+							<img src="<? echo $friend_user->getPic(); ?>">
+						</a>
+				    </div>
+
+				    <div class="msg_active_users_details">
+				    	<a href="messages.php?u=<?echo $friend_user->getUsername();?>">
+				    		<span class="title_1">
+				    		<? echo $friend_user->getFirstAndLastName(); ?></span></a><br>
+			    		<span class="title_1">Logged in</span>&nbsp;&nbsp;
+			    		<span class="title_2"><? echo $U->postInterval($rec['login_date_time']) ?></span>
+				    	
+				    </div>
+					<hr>
+		<?			
+				}
+			}		
+		}	
+//		echo $U->getLanguageKey("key_lbl_post_1",$lang). ":"  . $user['num_posts'] . "<br>" ;
+//		echo $U->getLanguageKey("key_lbl_like_1",$lang). ":"  . $user['num_likes'];
 		?>
-	</div> -->
-</div>
+	</div>
 </div>
 
 <div class="main_column column" id="main_column">
@@ -131,40 +128,56 @@ if ($user_to != 'new')
 <?
 	echo "<div class='loaded_messages'>";
 	$messages = $message_obj->getMessages($user_to);
-	?>
-	<div class="container">
-		<table class="table-hover">
-			<tbody> 
-	<? 
-	foreach ($messages as $row) 
+	
+	if ($messages != "none")
 	{
-		echo "<tr>";
-		if ($loggedUsername == $row['msg_user_to'])
+		?>
+		<div class="container">
+			<table class="table-hover">
+				<tbody> 
+		<? 
+		foreach ($messages as $row) 
 		{
-			$user = new User($con , $row['msg_user_to']);
-			echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
-			echo "<td class='msg_send'>" . $row['msg_body'] . "</td>"; 
-			echo "<td></td>";
-			echo "<td></td>";
-			echo "</tr>";
-			echo "<tr class='tr_empty'></tr>";
+			$height = 70;
+			$body_len = strlen($row['msg_body'])/25;
+			
+			if ($body_len > 1)
+			{
+				$height = (round($body_len) + 1) * 35; 
+			}
+			
+			if ($loggedUsername == $row['msg_user_to'])
+			{
+				$user = new User($con , $row['msg_user_to']);
+				echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+				echo "<td class='msg_send' background='assets/images/backgrounds/callout_noline_left.png' 
+				style='background-repeat:no-repeat;background-size: 350px ". $height ."px; 
+				width: 350px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
+				echo "<td></td>";
+				echo "<td></td>";
+				echo "</tr>";
+				echo "<tr class='tr_empty'></tr>";
+			}
+			else
+			{
+				$user = new User($con , $row['msg_user_to']);
+				echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+				echo "<td></td>";
+				echo "<td></td>";
+				echo "<td class='msg_send' background='assets/images/backgrounds/callout_noline_right.png' 
+				style='background-repeat:no-repeat;background-size: 350px ". $height ."px; 
+				width: 350px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
+				echo "</tr>";			
+				echo "<tr class='tr_empty'></tr>";
+			}
 		}
-		else
-		{
-			$user = new User($con , $row['msg_user_to']);
-			echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
-			echo "<td></td>";
-			echo "<td></td>";
-			echo "<td class='msg_receive'>" . $row['msg_body'] . "</td>"; 
-			echo "</tr>";			
-			echo "<tr class='tr_empty'></tr>";
-		}
+		?>
+				</tbody>
+			</table>
+		</div>
+	<?
 	}
-	//print_r ($message_obj->getMessages($user_to));
-?>
-			</tbody>
-		</table>
-	</div>
+	?>
 </div>
 
 </div>
