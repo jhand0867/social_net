@@ -19,6 +19,8 @@ $lang = $U->selectLanguage($con , $user['username']);
 
 echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    session_id " . session_id();
 
+$_SESSION['session_id'] = $sessionid;
+
 $S = new Session($con);
 $_SESSION['S']=$S;
 
@@ -29,6 +31,8 @@ ChromePhp::log($S);
 // deal with the post
 
 //echo "starting.. <br>";
+
+$S = null;
 
 
 

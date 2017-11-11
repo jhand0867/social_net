@@ -8,14 +8,19 @@ class Session
 	protected $user;
 	protected $start_timestamp;
 	protected $end_timestamp;
+	protected $connection;
 
 
 	public function __construct($conn)
 	{
-		$this->session_id = session_id();
+		echo "Session Started !!";
+		$this->session_id = $_SESSION['session_id'];
 		$this->user = $_SESSION['username'];
+		$this->connection = $conn;
+
+		//print_r($_SESSION);
 		
-		if (! isset($_SESSION['username']))
+		if (isset($_SESSION['session_id']))
 		{
 			$this->start_timestamp = date("Y-m-d H:i:s:u");
 
@@ -25,6 +30,40 @@ class Session
 
 	public function __destruct()
 	{
+		echo "Session Out !!";
+		$this->end_timestamp = date("Y-m-d H:i:s:u");
+		$this->updateSessionLog($this->connection, "SESS:", "User out " );
+
+		// find session record
+
+		ChromePhp::Log("SELECT * 
+			FROM soc_log
+			WHERE session_id = '$this->session_id' 
+			AND logout_date_time = '0000-00-00 00:00:00' ");
+
+		$session_qry = mysqli_query( $this->connection ,	
+			"SELECT * 
+			FROM soc_log
+			WHERE session_id = '$this->session_id' 
+			AND logout_date_time = '0000-00-00 00:00:00' ");
+		if (mysqli_num_rows($session_qry) > 0)
+		{
+			$session_data = mysqli_fetch_array($session_qry);
+			$logupdate = $session_data['log'];
+			$logupdate .=  "/r/nwhat ever....";
+		}
+		// add comment to log
+
+		ChromePhp::Log("UPDATE soc_log 
+			 SET log = '$logupdate',logout_date_time ='$this->end_timestamp'
+			 WHERE session_id = '$this->session_id' 
+			 AND logout_date_time = '0000-00-00 00:00:00'");
+
+		$session_qry = mysqli_query( $this->connection ,
+			"UPDATE soc_log 
+			 SET log = '$logupdate',logout_date_time ='$this->end_timestamp'
+			 WHERE session_id = '$this->session_id' 
+			 AND logout_date_time = '0000-00-00 00:00:00'");
 
 	}
 
@@ -42,10 +81,18 @@ class Session
 	private function startSession( $connection )
 	{
 		
-		$session_qry = mysqli_query( $connection ,
-			"INSERT INTO soc_log(session_id,username,log,login_date_time,logout_date_time)
-			 VALUES ('$this->session_id','$this->user',
-			 	'$this->start_timestamp SESS Starting Session: $this->session_id','$this->start_timestamp','')");
+		// check if session is already in DB
+		$log_sessions = mysqli_query( $connection ,
+			"SELECT session_id 
+			 FROM soc_log
+			 WHERE session_id = '$this->session_id'");
+		if (mysqli_num_rows($log_sessions) == 0)
+		{
+			$session_qry = mysqli_query( $connection ,
+				"INSERT INTO soc_log(session_id,username,log,login_date_time,logout_date_time)
+			 	VALUES ('$this->session_id','$this->user',
+			 		'$this->start_timestamp SESS Starting Session: $this->session_id','$this->start_timestamp','')");
+		}
 	}
 
 	public function updateSessionLog( $connection , $app, $log_line)
