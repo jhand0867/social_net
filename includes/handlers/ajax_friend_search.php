@@ -5,7 +5,7 @@ include("../../assets/classes/User.php");
 
 // parse request data
 
-var_dump($_POST);
+//var_dump($_POST);
 
 $query = $_POST['query'];
 $userLoggedIn = $_POST['userLoggedIn'];
@@ -49,10 +49,14 @@ if ($users_qry != "")
 		if ($row['username'] != $userLoggedIn)
 		{
 			$mutual_friends = $user_obj->getMutualFriends($row['username']);
+			$num_mutual_friends = count($mutual_friends) -1;
+			//echo $num_mutual_friends;
 		}
 		else  
 		{
 			$mutual_friends = "";
+			$num_mutual_friends = 0;
+			continue;
 		}
 
 		if ($user_obj->isFriend($row['username']))
@@ -65,8 +69,7 @@ if ($users_qry != "")
 					</div>
 					<div class='livesearch_text'>
 						".$row['first_name']." " .$row['last_name'] ."
-						<p>".$row['username']."</p>
-						<p class='grey'>". "mutual_friends" ."</p>
+						<p class='grey'>". $num_mutual_friends . " mutual_friends" ."</p>
 					</div>
 				</a>
 			</div>";

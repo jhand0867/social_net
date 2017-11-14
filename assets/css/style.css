@@ -501,3 +501,30 @@ td {
     font-size: 11px;
     color: #027cff;
 }
+
+.results_display {
+    padding: 5px 5px 0 4px;
+    height: 60px;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.results_display a {
+	float: none;
+}
+
+.results_display:hover {
+	background-color: #ebebeb;
+	text-decoration: none;
+}
+
+.livesearch_pic img {
+    height: 50px;
+    border-radius: 25px;
+    margin: 1px 12px 0 2px;
+    float: left;
+}
+
+.livesearch_text {
+    font-size: 14;
+    margin-left: 10px;
+}
