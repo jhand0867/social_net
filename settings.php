@@ -29,6 +29,10 @@ $lang = $U->selectLanguage($con , $user['username']);
 
 <div class="main_column column">
 
-   <p class="title_1">Member Settings</p>
+   	<p class="title_1">Member Settings</p>
+   	<?
+	echo $U->getLanguageKey("key_lbl_post_1",$lang). ":"  . $user['num_posts'] . "<br>" ;
+	
+	?>
 
 </div>
