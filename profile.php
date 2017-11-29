@@ -148,15 +148,25 @@ if(isset($_POST['respond_request']))
 
 				$user = new User($con , $loggedUsername);
 				$friends = $user->getMutualFriends($loggedUsername);
+				$numfriends = sizeof($friends);
+				$numfriend = 0;
+				$elipsis = false;
+				if ($numfriends > 5)
+					$elipsis == true;
 				foreach ($friends as $f) 
 				{
+					$numfriend++;
+					if ($numfriend == 6) 
+						break;
 				 	$user_obj = new User($con , $f);
 				 	echo "<div class='post_profile_pic'> 
 				 			<img src='" . $user_obj->getPic() . "'>
 				 			<a href='" . $user_obj->getUsername() . "'><br>" 
 				 			.$user_obj->getFirstname() ."&nbsp;".$user_obj->getLastname() . "</a>
 				 		  </div>";
-				 } 
+				 }
+				 if ($elipsis) 
+				 	echo "..." ;
 				 echo "	<div class='friend_list'>
 				 			<div>My Friends</div> <div><a href='#'>List All</a></div> 
 				 			</div>";
@@ -186,8 +196,10 @@ if(isset($_POST['respond_request']))
 					<img id="loading" src="assets/icons/loading.gif" >
 				</div>
 				<div id="chats" class="tab-pane fade">
+					This is in chats!!
 				</div>
 				<div id="menu2" class="tab-pane fade">
+					This is other TBD
 				</div>
 			</div>
 		</div>

@@ -67,7 +67,7 @@ class Post
 			"SELECT * 
 			FROM soc_posts 
 			WHERE post_deleted = 'no' 
-			ORDER BY id DESC");
+			ORDER BY post_date DESC");
 
 		if ( mysqli_num_rows($data_posts) > 0 )
 		{
