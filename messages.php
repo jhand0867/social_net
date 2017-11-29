@@ -162,19 +162,20 @@ if ($user_to != 'new')
 				width: 350px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
 				echo "<td></td>";
 				echo "<td></td>";
-				echo "</tr>";
+				// echo "</tr>";
 				echo "<tr class='tr_empty'></tr>";
 			}
 			else
 			{
 				$user = new User($con , $row['msg_user_to']);
-				echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
 				echo "<td></td>";
 				echo "<td></td>";
 				echo "<td class='msg_send' background='assets/images/backgrounds/callout_noline_right.png' 
 				style='background-repeat:no-repeat;background-size: 350px ". $height ."px; 
 				width: 350px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
-				echo "</tr>";			
+				echo "<td></td>";
+				echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+				// echo "</tr>";			
 				echo "<tr class='tr_empty'></tr>";
 			}
 		}
