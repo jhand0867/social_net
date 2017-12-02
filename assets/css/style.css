@@ -520,18 +520,23 @@ td {
     margin-left: 10px;
 }
 
-/*.nav {
-	height: 40px;
-    text-decoration: none;
-    color: #000;
-} 
-
-a.active {
-	border: 1px solid #0faae5;
-    font-size: 18px;
-    color: #000;
-    background-color: #0faae5;
-    border-radius: 5px;
-    margin: 5px 2px 10px 10px;
+.dropdown_data_window {
+    background-color: #fff;
+    width: 350px;
+    position: absolute;
+    right: 15px;
+    top: 42px;
+    border: 0px solid #d3d3d3;
+    box-shadow: 2px 2px 2px #1e3348;
+    border-radius: 0 0 5px 5px;
 }
-*/
+
+.rest
+{
+    border-radius: 0 0 5px 5px;
+    border: 1px solid #d3d3d3;
+    
+    position: absolute;
+    right: 15px;
+    top: 51px;
+}

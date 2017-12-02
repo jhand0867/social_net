@@ -49,12 +49,18 @@ else
 				<? echo $user['first_name'] ?>
 			</a>
 			<a href="index.php"><i class="fa fa-home fa-lg" aria-hidden="true"></i></a>
-			<a href="messages.php?u=new"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a>
+<!--			<a href="messages.php?u=new"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a> -->
+			<a href="javascript:void(0);" 
+			   onclick="getDropdownData('<? echo $loggedUsername ?>', 'message')">
+			   <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
+			</a>
 			<a href="#"><i class="fa fa-bell fa-lg" aria-hidden="true"></i></a>
 			<a href="request.php"><i class="fa fa-users fa-lg" aria-hidden="true"></i></a>
 			<a href="settings.php"><i class="fa fa-cog fa-lg" aria-hidden="true"></i></a>
 			<a href="includes/handlers/logout.php"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i></a>
 		</nav>
+		<div class="dropdown_data_window" style="height:0"></div>
+		<input type="hidden" id="dropdown_data_type" value="">
 	</div>
 
 	<div class="wrapper">
