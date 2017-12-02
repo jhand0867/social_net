@@ -122,53 +122,87 @@ if(isset($_POST['respond_request']))
 	</div>
 	<img src=""> <a href=""></a>
 	<div class="profile_friends_column column">
-			<?php 
-				if($username != $loggedUsername)
+		<?php 
+			if($username != $loggedUsername)
+			{
+				// this is not logged user profile page
+
+				$friends = $profile_user->getMutualFriends($loggedUsername);
+
+				foreach ($friends as $f) 
 				{
-					// this is not logged user profile page
+				 	$user_obj = new User($con , $f);
+				 	echo "<div class='post_profile_pic'> 
+				 			<img src='" . $user_obj->getPic() . "'>
+				 			<a href='" .$user_obj->getUsername() ."'><br>" 
+				 			.$user_obj->getFirstname() ."&nbsp;".$user_obj->getLastname() . "</a>
+				 		  </div>";
+				} 
+				  	echo "<div class='friend_list'>
+				 			<div>Common Friends</div> <div><a href='#'>List All</a></div> 
+				 			</div>";
+			}
+			else
+			{
+				// this is logged user profile page
 
-					$friends = $profile_user->getMutualFriends($loggedUsername);
-
-					foreach ($friends as $f) 
-					{
-					 	$user_obj = new User($con , $f);
-					 	echo "<div class='post_profile_pic'> 
-					 			<img src='" . $user_obj->getPic() . "'>
-					 			<a href='" .$user_obj->getUsername() ."'><br>" 
-					 			.$user_obj->getFirstname() ."&nbsp;".$user_obj->getLastname() . "</a>
-					 		  </div>";
-					} 
-					  	echo "<div class='friend_list'>
-					 			<div>Common Friends</div> <div><a href='#'>List All</a></div> 
-					 			</div>";
-				}
-				else
+				$user = new User($con , $loggedUsername);
+				$friends = $user->getMutualFriends($loggedUsername);
+				$numfriends = sizeof($friends);
+				$numfriend = 0;
+				$elipsis = false;
+				if ($numfriends > 5)
+					$elipsis == true;
+				foreach ($friends as $f) 
 				{
-					// this is logged user profile page
+					$numfriend++;
+					if ($numfriend == 6) 
+						break;
+				 	$user_obj = new User($con , $f);
+				 	echo "<div class='post_profile_pic'> 
+				 			<img src='" . $user_obj->getPic() . "'>
+				 			<a href='" . $user_obj->getUsername() . "'><br>" 
+				 			.$user_obj->getFirstname() ."&nbsp;".$user_obj->getLastname() . "</a>
+				 		  </div>";
+				 }
+				 if ($elipsis) 
+				 	echo "..." ;
+				 echo "	<div class='friend_list'>
+				 			<div>My Friends</div> <div><a href='#'>List All</a></div> 
+				 			</div>";
+			}
 
-					$user = new User($con , $loggedUsername);
-					$friends = $user->getMutualFriends($loggedUsername);
-					foreach ($friends as $f) 
-					{
-					 	$user_obj = new User($con , $f);
-					 	echo "<div class='post_profile_pic'> 
-					 			<img src='" . $user_obj->getPic() . "'>
-					 			<a href='" . $user_obj->getUsername() . "'><br>" 
-					 			.$user_obj->getFirstname() ."&nbsp;".$user_obj->getLastname() . "</a>
-					 		  </div>";
-					 } 
-					 echo "	<div class='friend_list'>
-					 			<div>My Friends</div> <div><a href='#'>List All</a></div> 
-					 			</div>";
-				}
-
-			 ?>
+		 ?>
 	</div >
 	<div class="profile_main_column column">
-		<div class="posts_area">  </div>
-		<img id="loading" src="assets/icons/loading.gif" >
-
-
+		<div class="container">
+			<ul class="nav nav-tabs">
+			  <li class="nav-item">
+			    <a class="nav-link active" data-toggle="tab" href="#posts">Posts</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" data-toggle="tab" href="#chats">Chats</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" data-toggle="tab" href="#menu2">Other</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link disabled" data-toggle="tab" href="#">Disabled</a>
+			  </li>
+			</ul>
+			<div class="tab-content">
+				<div id="posts" class="tab-pane active in">
+					<div class="posts_area">  </div>
+					<img id="loading" src="assets/icons/loading.gif" >
+				</div>
+				<div id="chats" class="tab-pane fade">
+					This is in chats!!
+				</div>
+				<div id="menu2" class="tab-pane fade">
+					This is other TBD
+				</div>
+			</div>
+		</div>
 	</div>
 
 		<!-- Modal -->

@@ -36,6 +36,11 @@ body{
 	top: 9px;	
 }
 
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
 nav{
 	float: right;
 	right: 1px;
@@ -441,12 +446,6 @@ td {
 	float: left;
 }
 
-/*.msg_active_pics a {
-	text-decoration: none;
-} */
-
-
-
 .msg_active_users_details{
     font-size: 13px;
     height: 20px;
@@ -457,23 +456,15 @@ td {
 }
 
 .msg_send {
-	/*background-image: url("assets/images/backgrounds/path559.png");
-	background-color: #28a745;
-	background-size: 100px 300px; */
 	text-align: center;
 	border: none;
-	/*min-width: 280px;
-	max-width: 400px; */
 	padding-left: 17px;
 	padding-bottom: 47px;
 }
 
 .msg_receive {
-	/*background-color: #ffc107; */
 	text-align: center; 
 	border: none;
-	/*min-width: 280px;
-	max-width: 400px;*/
 	padding-left: 17px;
 	padding-bottom: 47px;
 }
@@ -500,4 +491,52 @@ td {
 .title_2 {
     font-size: 11px;
     color: #027cff;
+}
+
+.results_display {
+    padding: 5px 5px 0 4px;
+    height: 60px;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.results_display a {
+	float: none;
+}
+
+.results_display:hover {
+	background-color: #ebebeb;
+	text-decoration: none;
+}
+
+.livesearch_pic img {
+    height: 50px;
+    border-radius: 25px;
+    margin: 1px 12px 0 2px;
+    float: left;
+}
+
+.livesearch_text {
+    font-size: 14;
+    margin-left: 10px;
+}
+
+.dropdown_data_window {
+    background-color: #fff;
+    width: 350px;
+    position: absolute;
+    right: 15px;
+    top: 42px;
+    border: 0px solid #d3d3d3;
+    box-shadow: 2px 2px 2px #1e3348;
+    border-radius: 0 0 5px 5px;
+}
+
+.rest
+{
+    border-radius: 0 0 5px 5px;
+    border: 1px solid #d3d3d3;
+    
+    position: absolute;
+    right: 15px;
+    top: 51px;
 }

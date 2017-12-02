@@ -80,6 +80,57 @@ class Message
 
 		return $messages;
 	}
+
+	public function getConvosDropdown($data , $limit) 
+	{
+		$loggedInUser = $this->user_obj->getUsername();
+		$page = $data['page'];
+		$user = $data['userLoggedIn'];
+
+		$returnString = '';
+		$convos = array();
+
+		// how many messages to load?
+		if ($page == 1)
+			$startLoading = 0;
+		else
+			$startLoading = ($page -1) * $limit;
+
+		// udate opened flag 
+		$qry_str = "UPDATE soc_messages
+			 SET msg_viewed = 'yes' 
+			 WHERE msg_user_to = '$loggedInUser'";
+	
+		$msg_qry = mysqli_query($this->conn , $qry_str);
+
+		$qry_str = "SELECT msg_user_to, msg_user_from
+			 FROM soc_messages
+			 WHERE ((msg_user_to = '$loggedInUser') 
+			 OR (msg_user_from = '$loggedInUser')) AND msg_deleted = 'no'
+			 ORDER BY msg_date DESC";
+
+		//echo $qry_str;
+
+		$msg_qry1 = mysqli_query($this->conn , $qry_str	);
+		
+		while ($row = mysqli_fetch_array($msg_qry1))
+		{
+			$user_to_push = ($row['msg_user_to'] != $loggedInUser) ? $row['msg_user_to'] : $row['msg_user_from'];
+
+			if (!in_array($user_to_push , $convos))
+				array_push($convos, $user_to_push);
+		}
+
+		return $convos;
+
+		/* sample comvos
+		array(4) { [0]=> string(14) "maria_handschu" 
+		           [1]=> string(16) "matthew_handschu" 
+		           [2]=> string(15) "lorena_handschu" 
+		           [3]=> string(18) "matthew_handschu_1" }
+		*/
+
+	}
 }
 
  ?>
