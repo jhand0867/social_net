@@ -3,6 +3,9 @@
 require 'includes/header.php';
 require_once 'assets/classes/Utils.php';
 
+$U = new Utils();
+$lang = $U->selectLanguage($con , $loggedUsername);
+
 if(isset($_GET['profile_username']))
 {
 	$username = $_GET['profile_username'];
@@ -28,6 +31,34 @@ if(isset($_POST['respond_request']))
 {
 	header("Location: requests.php");
 }
+
+$message_obj = new Message($con , $loggedUsername);
+if (isset($_GET['u']))
+	$user_to = $_GET['u'];
+else 
+{
+	$user_to = $message_obj->getMostRecentUser();
+	if ($user_to == 'false')
+		$user_to = 'new';
+}
+if ($user_to != 'new')
+	$user_to_obj = new User ($con , $user_to);
+if (isset($_POST['post_msg']))
+{
+	if (isset($_POST['msg_body']))
+	{
+		$check_safe = $U->stringSafe($con , $_POST['msg_body']);
+		$body = $check_safe;
+
+		$date = date("Y-m-d H:i:s");
+		$message_obj->sendMessage($user_to,$body,$date);
+		$_POST['msg_body'] = "";
+		//$user_to = "";
+		$body = "";
+		$date = "";
+	}
+}
+
 
 
 ?>
@@ -196,7 +227,95 @@ if(isset($_POST['respond_request']))
 					<img id="loading" src="assets/icons/loading.gif" >
 				</div>
 				<div id="chats" class="tab-pane fade">
-					This is in chats!!
+<!--- chats from messages -->
+
+<?
+
+if ($user_to != 'new')
+
+	echo "<h4>You and <a href='$user_to'>" .$user_to_obj->getFirstAndLastName() ."</a></h4><hr><br>";
+?>
+
+<div class="post_message">
+	<form action="" method="POST">
+	<?
+	if($user_to == "new")
+	{
+	?>
+		Select the user you would like to send a message
+		<br><br>
+		To: <input type="text" onkeyup="getUsers(this.value, '<? echo $loggedUsername ?>');"
+		name="q" placeholder="Name" autocomplete="off" id="search_text_input">
+		<div class="results" id="results"></div>
+	<?
+	}
+	else
+	{
+	?>
+		<textarea name="msg_body" id="msg_textarea" placeholder="Type your message.."></textarea>
+		<input type="submit" class="info" name="post_msg" id="msg_submit" value="Send">
+	<?
+	}
+	?>
+	</form>
+</div>
+<?
+	echo "<div class='loaded_messages'>";
+	$messages = $message_obj->getMessages($user_to);
+	
+	if ($messages != "none")
+	{
+		?>
+		<div class="container">
+			<table class="table-hover">
+				<tbody> 
+		<? 
+		foreach ($messages as $row) 
+		{
+			$height = 70;
+			$body_len = strlen($row['msg_body'])/25;
+			
+			if ($body_len > 1)
+			{
+				$height = (round($body_len) + 1) * 35; 
+			}
+			
+			if ($loggedUsername == $row['msg_user_to'])
+			{
+				$user = new User($con , $row['msg_user_to']);
+				echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+				echo "<td class='msg_send' background='assets/images/backgrounds/callout_noline_left.png' 
+				style='background-repeat:no-repeat;background-size: 350px ". $height ."px; 
+				width: 350px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
+				echo "<td></td>";
+				echo "<td></td>";
+				echo "</tr>";
+				echo "<tr class='tr_empty'></tr>";
+			}
+			else
+			{
+				$user = new User($con , $row['msg_user_to']);
+				echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+				echo "<td></td>";
+				echo "<td></td>";
+				echo "<td class='msg_send' background='assets/images/backgrounds/callout_noline_right.png' 
+				style='background-repeat:no-repeat;background-size: 350px ". $height ."px; 
+				width: 350px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
+				echo "</tr>";			
+				echo "<tr class='tr_empty'></tr>";
+			}
+		}
+		?>
+				</tbody>
+			</table>
+		</div>
+	<?
+	}
+	?>
+</div>
+
+
+<!--- end of chats from messages -->
 				</div>
 				<div id="menu2" class="tab-pane fade">
 					This is other TBD

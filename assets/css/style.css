@@ -356,13 +356,13 @@ textarea: focus{
 }
 
 .btn-danger {
-	color: #fff;
+    color: #fff;
     background-color: #dc3545;
     border-color: #dc3545;
-    width: 10%;
-    font-size: 14;
-    border-radius: 7px;
-    margin: 1px 10px 1px 10px;
+    width: 22px;
+    font-size: 11px;
+    border-radius: 3px;
+    margin: 1px 10px 2px 4px;
 }
 
 .profile_friends_column img {
