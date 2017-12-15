@@ -22,17 +22,14 @@ foreach ($convos as $user) {
 		<div class='comvo_msg' style='top: 0px; 
 		                              float: right; 
 		                              margin: -40px 182px 0px 0px;'>
-		   <p>Message!!</p>
+		   <p style='top: 2px; right: 1px; margin-top: 1px; margin-right: -145px; width: 250; font-size: 15;'>" . 
+		   $message_obj->getLastMessage($user)['text'] . "<br><span style='font-size: 12; color: #007bff;'>"
+		        . $message_obj->getLastMessage($user)['time'] . "</span></p>
 		</div>
 	</div>
 	<hr>
 	";
 }
-
-
-
-
-
 
 
  ?>

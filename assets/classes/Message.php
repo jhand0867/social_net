@@ -107,7 +107,7 @@ class Message
 			 FROM soc_messages
 			 WHERE ((msg_user_to = '$loggedInUser') 
 			 OR (msg_user_from = '$loggedInUser')) AND msg_deleted = 'no'
-			 ORDER BY msg_date DESC";
+			 ORDER BY msg_date DESC ";
 
 		//echo $qry_str;
 
@@ -130,6 +130,34 @@ class Message
 		           [3]=> string(18) "matthew_handschu_1" }
 		*/
 
+	}
+
+	public function getLastMessage($user)
+	{
+		$msg = $this->getMessages($user);
+
+		/*
+		{ ["id"]=> string(2) "77" 
+		  ["msg_user_to"]=> string(14) "maria_handschu" 
+		  ["msg_user_from"]=> string(15) "joseph_handschu" 
+		  ["msg_body"]=> string(21) "mari are you there? " 
+		  ["msg_date"]=> string(19) "2017-12-01 20:45:38" 
+		  ["msg_opened"]=> string(2) "no" 
+		  ["msg_viewed"]=> string(2) "no" 
+		  ["msg_deleted"]=> string(2) "no" 
+		 } 
+		*/
+
+		$last_msg = array();
+		$utils = new Utils();
+
+		$last_msg_str = $msg[0]['msg_body'];
+		$last_msg_time = $utils->postInterval($msg[0]['msg_date']);
+
+		$last_msg['text']=$last_msg_str;
+		$last_msg['time']=$last_msg_time;
+
+		return $last_msg;
 	}
 }
 
