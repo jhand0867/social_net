@@ -159,6 +159,22 @@ class Message
 
 		return $last_msg;
 	}
+
+	public function countUnopenedMessages($user)
+	{
+		$unopen_messages = 0;
+
+		$qry_str = "SELECT * 
+		            FROM soc_messages
+		            WHERE msg_user_to = '$user' AND msg_viewed = 'no'";
+
+		$msg_qry = mysqli_query($this->conn , $qry_str);
+
+		//$unopen_messages = mysql_num_rows($msg_qry);
+		
+		$unopen_messages = ($msg_qry->num_rows);
+		return $unopen_messages;
+	}
 }
 
  ?>
