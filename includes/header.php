@@ -20,6 +20,15 @@ if (isset($_SESSION['username']))
 else
 	header("Location: registration.php");
 
+$msg_obj = new Message($con, $loggedUsername );
+$msg_unread = $msg_obj->countUnopenedMessages($loggedUsername);
+$msg_unred_str = '';
+$msg_unread = "99+";
+if ($msg_unread > 0)
+{
+	$msg_unred_str = "<span class='unread_msg_badge'>$msg_unread</span>";
+}
+
 ?>
 <html>
 <head>
@@ -45,19 +54,31 @@ else
 			<a href="index.php">Social Net</a>
 		</div>
 		<nav>
-			<a href="<? echo $user['username']; ?>">
+			<a href="<? echo "profile.php?profile_username=".$user['username']."&t=0"; ?>">
 				<? echo $user['first_name'] ?>
 			</a>
-			<a href="index.php"><i class="fa fa-home fa-lg" aria-hidden="true"></i></a>
+			<a href="index.php"><i class="fa fa-home fa-lg" aria-hidden="true"></i>
+				&nbsp;&nbsp;
+			</a>
 <!--			<a href="messages.php?u=new"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a> -->
 			<a href="javascript:void(0);" 
 			   onclick="getDropdownData('<? echo $loggedUsername ?>', 'message')">
 			   <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
+			   &nbsp;<? echo $msg_unred_str; ?>&nbsp;
 			</a>
-			<a href="#"><i class="fa fa-bell fa-lg" aria-hidden="true"></i></a>
-			<a href="request.php"><i class="fa fa-users fa-lg" aria-hidden="true"></i></a>
-			<a href="settings.php"><i class="fa fa-cog fa-lg" aria-hidden="true"></i></a>
-			<a href="includes/handlers/logout.php"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i></a>
+			<a href="#">
+				<i class="fa fa-bell fa-lg" aria-hidden="true"></i>
+				&nbsp;&nbsp;
+			</a>
+			<a href="request.php"><i class="fa fa-users fa-lg" aria-hidden="true"></i>
+				&nbsp;&nbsp;
+			</a>
+			<a href="settings.php"><i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+				&nbsp;&nbsp;
+			</a>
+			<a href="includes/handlers/logout.php"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
+				&nbsp;&nbsp;
+			</a>
 		</nav>
 		<div class="dropdown_data_window" style="height:0"></div>
 		<input type="hidden" id="dropdown_data_type" value="">

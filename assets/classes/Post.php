@@ -95,7 +95,7 @@ class Post
 					$user_to_obj = new User( $this->conn, $posted_to);
 					$user_to_full_name = $user_to_obj->getFirstAndLastName();
 					$user_to_name = $user_to_obj->getFirstName();
-					$user_to = "to <a href='" . $posted_to . "'>" . $user_to_full_name . "</a>";
+					$user_to = "to <a href='profile.php?profile_username=" . $posted_to . "&t=0'>" . $user_to_full_name . "</a>";
 				}
 
 				// is the posting account closed?
@@ -192,7 +192,7 @@ class Post
 								</div>
 
 								<div class='posted_by' style='color:ACACAC;'>
-									<a href='$added_by_name'>$added_by_full_name</a> 
+									<a href='profile.php?profile_username=".$added_by_name."&t=0'>$added_by_full_name</a> 
 									$user_to &nbsp;&nbsp;&nbsp;$time_message 
 									$delete_button
 								</div>

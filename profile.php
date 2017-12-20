@@ -5,6 +5,16 @@ require_once 'assets/classes/Utils.php';
 
 $U = new Utils();
 $lang = $U->selectLanguage($con , $loggedUsername);
+$active_0 = '';
+$active_1 = '';
+$active_2 = '';
+$active_3 = '';
+$active_in_0 = 'fade';
+$active_in_1 = 'fade';
+$active_in_2 = 'fade';
+$active_in_3 = 'fade';
+
+
 
 if(isset($_GET['profile_username']))
 {
@@ -57,6 +67,29 @@ if (isset($_POST['post_msg']))
 		$body = "";
 		$date = "";
 	}
+}
+if (isset($_GET['t']))
+{
+	if ($_GET['t'] == '0')
+	{
+		$active_0 = "active";
+		$active_in_0 = "active in";
+	}
+	else if ($_GET['t'] == '1')
+	{
+		$active_1 = "active";
+		$active_in_1 = "active in";
+	}
+	else if ($_GET['t'] == '2')
+	{
+		$active_2 = "active";
+		$active_in_2 = "active in";
+	}	
+	else
+	{
+		$active_3 = "active";
+		$active_in_3 = "active in";
+	}	
 }
 
 
@@ -165,7 +198,7 @@ if (isset($_POST['post_msg']))
 				 	$user_obj = new User($con , $f);
 				 	echo "<div class='post_profile_pic'> 
 				 			<img src='" . $user_obj->getPic() . "'>
-				 			<a href='" .$user_obj->getUsername() ."'><br>" 
+				 			<a href='profile.php?profile_username=" .$user_obj->getUsername() ."&t=0'><br>" 
 				 			.$user_obj->getFirstname() ."&nbsp;".$user_obj->getLastname() . "</a>
 				 		  </div>";
 				} 
@@ -209,24 +242,24 @@ if (isset($_POST['post_msg']))
 		<div class="container">
 			<ul class="nav nav-tabs">
 			  <li class="nav-item">
-			    <a class="nav-link active" data-toggle="tab" href="#posts">Posts</a>
+			    <a class="nav-link <? echo $active_0; ?>" data-toggle="tab" href="#posts">Posts</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="nav-link" data-toggle="tab" href="#chats">Chats</a>
+			    <a class="nav-link <? echo $active_1; ?>" data-toggle="tab" href="#chats">Chats</a>
 			  </li>
-			  <li class="nav-item">
+			  <li class="nav-item <? echo $active_2; ?>">
 			    <a class="nav-link" data-toggle="tab" href="#menu2">Other</a>
 			  </li>
-			  <li class="nav-item">
+			  <li class="nav-item <? echo $active_3; ?>">
 			    <a class="nav-link disabled" data-toggle="tab" href="#">Disabled</a>
 			  </li>
 			</ul>
 			<div class="tab-content">
-				<div id="posts" class="tab-pane active in">
+				<div id="posts" class="tab-pane <?echo $active_in_0; ?>">
 					<div class="posts_area">  </div>
 					<img id="loading" src="assets/icons/loading.gif" >
 				</div>
-				<div id="chats" class="tab-pane fade">
+				<div id="chats" class="tab-pane <?echo $active_in_1; ?>">
 <!--- chats from messages -->
 
 <?
@@ -283,25 +316,21 @@ if ($user_to != 'new')
 			if ($loggedUsername == $row['msg_user_to'])
 			{
 				$user = new User($con , $row['msg_user_to']);
-				echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+				echo "<td style='width:10%'><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
 				echo "<td class='msg_send' background='assets/images/backgrounds/callout_noline_left.png' 
 				style='background-repeat:no-repeat;background-size: 350px ". $height ."px; 
-				width: 350px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
-				echo "<td></td>";
-				echo "<td></td>";
-				echo "</tr>";
+				width: 80%; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
+				echo "<td style='width:10%'></td>";
 				echo "<tr class='tr_empty'></tr>";
 			}
 			else
 			{
 				$user = new User($con , $row['msg_user_to']);
-				echo "<td ><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
-				echo "<td></td>";
-				echo "<td></td>";
+				echo "<td style='width:10%'></td>";
 				echo "<td class='msg_send' background='assets/images/backgrounds/callout_noline_right.png' 
 				style='background-repeat:no-repeat;background-size: 350px ". $height ."px; 
-				width: 350px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
-				echo "</tr>";			
+				width: 80%px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
+				echo "<td sytel='width:10%'><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
 				echo "<tr class='tr_empty'></tr>";
 			}
 		}
@@ -317,7 +346,10 @@ if ($user_to != 'new')
 
 <!--- end of chats from messages -->
 				</div>
-				<div id="menu2" class="tab-pane fade">
+				<div id="menu2" class="tab-pane <?echo $active_in_2; ?>">
+					This is other TBD
+				</div>
+				<div id="menu2" class="tab-pane <?echo $active_in_3; ?>">
 					This is other TBD
 				</div>
 			</div>

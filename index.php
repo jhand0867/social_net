@@ -46,12 +46,12 @@ if(isset($_POST['post_button']))
 
 ?>
 	<div class="user_details column">
-		<a href="<? echo $user['username']; ?>">
+		<a href="profile.php?profile_username=<? echo $user['username']; ?>&t=0">
 			<img src="<? echo $user['profile_pic'] ?>">
 		</a>
 		<div class="user_details_left_right">
 			<!-- User Details Data -->
-			<a href=" <? echo $user['username']; ?> ">
+			<a href=" profile.php?profile_username=<? echo $user['username']; ?>&t=0 ">
 			<?
 				echo $user['first_name'] . "<br>"; 
 			?>
