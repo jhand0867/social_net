@@ -170,8 +170,6 @@ class Message
 
 		$msg_qry = mysqli_query($this->conn , $qry_str);
 
-		//$unopen_messages = mysql_num_rows($msg_qry);
-		
 		$unopen_messages = ($msg_qry->num_rows);
 		return $unopen_messages;
 	}

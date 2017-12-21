@@ -5,6 +5,7 @@ require "assets/classes/Utils.php";
 require "assets/classes/User.php";
 require "assets/classes/Post.php";
 require "assets/classes/Message.php";
+require "assets/classes/Notification.php";
 
 
 // require "includes/global_utils.php";
@@ -28,6 +29,16 @@ if ($msg_unread > 0)
 {
 	$msg_unred_str = "<span class='unread_msg_badge'>$msg_unread</span>";
 }
+
+$not_obj = new Notification($con, $loggedUsername);
+$not_unread = $not_obj->countNotifications($loggedUsername);
+$not_unred_str = '';
+$not_unread = "99+";
+if ($not_unread > 0)
+{
+	$not_unred_str = "<span class='unread_msg_badge'>$not_unread</span>";
+}
+
 
 ?>
 <html>
@@ -66,9 +77,10 @@ if ($msg_unread > 0)
 			   <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
 			   &nbsp;<? echo $msg_unred_str; ?>&nbsp;
 			</a>
-			<a href="#">
+			<a href="javascript:void(0);" 
+			   onclick="getDropdownData('<? echo $loggedUsername ?>', 'notification')">
 				<i class="fa fa-bell fa-lg" aria-hidden="true"></i>
-				&nbsp;&nbsp;
+				&nbsp;<? echo $not_unred_str; ?>&nbsp;
 			</a>
 			<a href="request.php"><i class="fa fa-users fa-lg" aria-hidden="true"></i>
 				&nbsp;&nbsp;
