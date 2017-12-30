@@ -25,6 +25,7 @@
 require 'config/config.php';
 require 'assets/classes/User.php';
 require 'assets/classes/Post.php';
+require 'assets/classes/Notification.php';
 require_once 'assets/classes/Utils.php';
 
 /* Create a trace file in '/tmp/client.trace' on the local (client) machine: */
@@ -68,6 +69,13 @@ if ( isset($_POST['like_button'] ) )
 	$user_liked->increaseLikes();
 	$post = new Post( $con , $loggedUsername );
 	$post->increaseLikes( $post_id , $loggedUsername);
+
+	// add notification 
+	if ( $user_liked != $loggedUsername )
+	{
+		$nt = new Notification($con , $user_liked );
+		$nt->createNotification($post_id, $user_liked, 'like');
+	}
 
 }
 

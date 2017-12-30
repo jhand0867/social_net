@@ -24,7 +24,7 @@ else
 $msg_obj = new Message($con, $loggedUsername );
 $msg_unread = $msg_obj->countUnopenedMessages($loggedUsername);
 $msg_unred_str = '';
-$msg_unread = "99+";
+//$msg_unread = "99+";
 if ($msg_unread > 0)
 {
 	$msg_unred_str = "<span class='unread_msg_badge'>$msg_unread</span>";
@@ -33,7 +33,7 @@ if ($msg_unread > 0)
 $not_obj = new Notification($con, $loggedUsername);
 $not_unread = $not_obj->countNotifications($loggedUsername);
 $not_unred_str = '';
-$not_unread = "99+";
+//$not_unread = "99+";
 if ($not_unread > 0)
 {
 	$not_unred_str = "<span class='unread_msg_badge'>$not_unread</span>";

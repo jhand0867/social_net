@@ -41,10 +41,16 @@ class Post
 			$returned_id = mysqli_insert_id($this->conn);
 
 			// add notification 
+			if ( $user_to != 'none' )
+			{
+				$nt = new Notification($this->conn , $post_user );
+				$nt->createNotification($returned_id, $user_to, 'wall');
+			}
 
 
 			// adjust user's posts count
 			$this->user_obj->increaseNumPost();
+
 	
 		}
 	}

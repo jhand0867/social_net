@@ -30,11 +30,11 @@ class Utils
 		{
 			if ( $interval->y == 1 )
 			{
-				$time_message = $interval-y . " year ago";
+				$time_message = $interval->y . " year ago";
 			}
 			else
 			{
-				$time_message = $interval-y . " years ago";
+				$time_message = $interval->y . " years ago";
 			}
 		}
 		else if ( $interval->m >= 1 )

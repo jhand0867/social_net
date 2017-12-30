@@ -16,6 +16,7 @@
 require 'config/config.php';
 require 'assets/classes/User.php';
 require 'assets/classes/Post.php';
+require 'assets/classes/Notification.php';
 require_once 'assets/classes/Utils.php';
 
 /* Create a trace file in '/tmp/client.trace' on the local (client) machine: */
@@ -65,6 +66,7 @@ else
 		$row = mysqli_fetch_array( $user_posts );
 
 		$posted_to = $row['post_added_by'];
+		$user_to = $row['post_user_to'];
 
 		if ( isset( $_POST['postComment' . $post_id] ))
 		{
@@ -88,6 +90,46 @@ else
 			$returned_id = mysqli_insert_id($con);
 
 			echo "<p>Comment posted!</p>";
+
+			// add notification 
+			if ( $posted_to != $loggedUsername )
+			{
+				$nt = new Notification($con , $posted_to );
+				$nt->createNotification($post_id, $posted_to, 'comment');
+			}
+			if ( $user_to != 'none' && $user_to != $loggedUsername)
+			{
+				$nt = new Notification($con , $posted_to );
+				$nt->createNotification($post_id, $user_to, 'profile_comment');
+			}
+
+			// get all who added a comment on a post
+			// and send notifications
+			$sql_str = "SELECT * 
+			            FROM soc_comments
+			            WHERE comment_to_post_id='$post_id'";
+
+			$qry_comments = mysqli_query($con, $sql_str);
+			$notified_users = array();
+			while ($row = mysqli_fetch_array($qry_comments))
+			{
+				// not owner of the post
+				// not owner of the profile
+				// not who is logged in
+				// have not already been notified 
+				if ($row['comment_by'] != $row['comment_to'] && 
+					$row['comment_by'] != $user_to && 
+					$row['comment_by'] != $loggedUsername && 
+					!in_array($row['comment_by'], $notified_users))
+				{
+					$nt = new Notification($con , $posted_to );
+					$nt->createNotification($post_id, $row['comment_by'], 'comment_non_owner');
+					array_push($notified_users, $row['comment_by']);
+
+				}
+
+
+			}
 
 		}
 
