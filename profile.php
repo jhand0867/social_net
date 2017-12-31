@@ -100,7 +100,6 @@ if (isset($_GET['t']))
 			margin-left: 0px;
 			padding-left: 0px;
 		}
-
 	</style>
 	<div class="profile_left">
 		<img src="<? echo $profile_user->getPic() ?>">
@@ -184,7 +183,7 @@ if (isset($_GET['t']))
 				style="width: 95%;height: 35px;margin: 7px 0 0 7px;color: #fff;border: none;
 				border-radius: 5px;" value="Post to User">
 	</div>
-	<img src=""> <a href=""></a>
+	<!-- img src=""> <a href=""></a -->
 	<div class="profile_friends_column column">
 		<?php 
 			if($username != $loggedUsername)

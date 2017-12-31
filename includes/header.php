@@ -58,6 +58,15 @@ if ($not_unread > 0)
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.Jcrop.css">
 
+    <style type="text/css">
+    	.nt_comvo :hover {
+			background-color: #ebebeb;
+			text-decoration: none;
+		}
+
+
+    </style>
+
 </head>
 <body>
 	<div class="top_bar">

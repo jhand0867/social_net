@@ -61,15 +61,16 @@ class Notification
 
 		$qry_str = "SELECT nt_user_to, nt_user_from
 			 FROM soc_notifications
-			 WHERE ((nt_user_to = '$loggedInUser')
-			 OR (nt_user_from = '$loggedInUser')) 
+			 WHERE nt_user_to = '$loggedInUser'
+			 AND nt_opened = 'no'
 			 ORDER BY nt_datetime DESC ";
-
+		
 		$nt_qry1 = mysqli_query($this->conn , $qry_str);
 
 		while ($row = mysqli_fetch_array($nt_qry1))
 		{
-			$user_to_push = ($row['nt_user_to'] != $loggedInUser) ? $row['nt_user_to'] : $row['nt_user_from'];
+			$user_to_push = 
+			($row['nt_user_to'] != $loggedInUser) ? $row['nt_user_to'] : $row['nt_user_from'];
 
 			if (!in_array($user_to_push , $convos))
 				array_push($convos, $user_to_push);
@@ -77,7 +78,7 @@ class Notification
 
 		return $convos;
 
-		/* sample comvos
+		/* sample convos
 		array(4) { [0]=> string(14) "maria_handschu" 
 		           [1]=> string(16) "matthew_handschu" 
 		           [2]=> string(15) "lorena_handschu" 
@@ -134,10 +135,7 @@ class Notification
 					nt_datetime, nt_opened, nt_viewed) 
                     VALUES('', '$to', '$loggedInUser', '$message', '$link', '$date_time', 'no', 'no')";
 
-		echo $qry_str;
-
 		$nt_sql = mysqli_query($this->conn, $qry_str);
-
 	}
 
 	public function getNotifications($user)
@@ -159,11 +157,11 @@ class Notification
 			 AND nt_opened = 'no'
 			 ORDER BY nt_datetime DESC";
 
-		echo $qry_str;
+		//echo $qry_str;
 
 		$nt_qry1 = mysqli_query($this->conn ,$qry_str);
 
-		print_r($nt_qry1);
+		//print_r($nt_qry1);
 
 		if (mysqli_num_rows($nt_qry1) > 0)
 			$messages = mysqli_fetch_all($nt_qry1, MYSQL_ASSOC);
@@ -177,6 +175,9 @@ class Notification
 	{
 		$nts = $this->getNotifications($user);
 
+		//echo "<br>NTS:<br>";
+		//print_r($nts);
+
 		/*
 		{ ["id"]=> string(2) "77" 
 		  ["nt_user_to"]=> string(14) "maria_handschu" 
@@ -189,14 +190,23 @@ class Notification
 		 } 
 		*/
 
-		$last_nt = array();
-		$utils = new Utils();
+		$last_nt = "";
 
-		$last_nt_str = $nts[0]['nt_text'];
-		$last_nt_time = $utils->postInterval($nts[0]['nt_datetime']);
+		if (sizeof($nts) != 0) 
+		{
+			$last_nt = array();
+			$utils = new Utils();
 
-		$last_nt['text']=$last_nt_str;
-		$last_nt['time']=$last_nt_time;
+			$last_nt_str = $nts[0]['nt_text'];
+			$last_nt_time = $utils->postInterval($nts[0]['nt_datetime']);
+
+			$last_nt['text']=$last_nt_str;
+			$last_nt['time']=$last_nt_time;
+		}
+		else
+		{
+			$last_nt = "nothing";
+		}
 
 		return $last_nt;
 	}

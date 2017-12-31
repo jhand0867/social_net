@@ -14,8 +14,11 @@ $convos = $message_obj->getConvosDropdown($_REQUEST , $limit);
 foreach ($convos as $user) {
 	// create a user object to access info
 	$user_obj = new User ($con, $user);
+?>
+<div onMouseOver="this.style.backgroundColor='#F8F8F8'" onMouseOut="this.style.backgroundColor='#FFFFFF'">	
+<?
 	echo "
-	<div>
+	
 		<div class='comvo_pic'>
 		  <a href='profile.php?profile_username=".$user_obj->getUsername()."&t=1'>
 		     <img src='". $user_obj->getPic()."' style='top:0px; margin-left:5px; height:45px;'></a>
