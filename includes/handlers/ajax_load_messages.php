@@ -15,7 +15,7 @@ foreach ($convos as $user) {
 	// create a user object to access info
 	$user_obj = new User ($con, $user);
 ?>
-<div onMouseOver="this.style.backgroundColor='#F8F8F8'" onMouseOut="this.style.backgroundColor='#FFFFFF'">	
+<div onMouseOver="this.style.backgroundColor='#ebebeb'" onMouseOut="this.style.backgroundColor='#FFF'">	
 <?
 	echo "
 	

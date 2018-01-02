@@ -20,7 +20,7 @@ foreach ($convos as $user) {
 	if ($nt != 'nothing' )
 	{
 ?>
-<div class='nt_comvo' onMouseOver="this.style.backgroundColor='#F8F8F8'" onMouseOut="this.style.backgroundColor='#FFFFFF'">
+<div class='nt_comvo' onMouseOver="this.style.backgroundColor='#ebebeb'" onMouseOut="this.style.backgroundColor='#FFF'">
 <?
 				echo "
 			<div class='comvo_pic'>
