@@ -10,6 +10,11 @@ $limit = 7; // number of displayed messages
 $message_obj = new Message( $con, $_REQUEST['userLoggedIn']);
 
 $convos = $message_obj->getConvosDropdown($_REQUEST , $limit);
+if (sizeof($convos == 1))
+{
+	echo "<br><br><p style='text-align: center;'>No Messages had been received</p>";
+	return;
+}
 
 foreach ($convos as $user) {
 	// create a user object to access info

@@ -161,6 +161,7 @@ class Notification
 
 		$nt_qry1 = mysqli_query($this->conn ,$qry_str);
 
+		//echo "<br>nt_qry1:<br>";
 		//print_r($nt_qry1);
 
 		if (mysqli_num_rows($nt_qry1) > 0)
@@ -168,6 +169,8 @@ class Notification
 		else
 			$messages = "none";
 
+		//echo "<br>messages:<br>";
+		//print_r($messages);
 		return $messages;
 	}
 

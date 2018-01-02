@@ -11,11 +11,19 @@ $notification_obj = new Notification( $con, $_REQUEST['userLoggedIn']);
 
 $convos = $notification_obj->getConvosDropdown($_REQUEST , $limit);
 
+if (sizeof($convos == 1))
+{
+	echo "<br><br><p style='text-align: center;'>No Notifications at this time</p>";
+	return;
+}
+
 foreach ($convos as $user) {
 	// create a user object to access info
 	$user_obj = new User ($con, $user);
 
 	$nt = $notification_obj->getLastNotification($user);
+
+	echo $nt;
 
 	if ($nt != 'nothing' )
 	{
