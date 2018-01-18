@@ -92,6 +92,11 @@ if (isset($_GET['t']))
 	}	
 }
 
+if (isset($_GET['pid']))
+	$post_id = $_GET['pid'];
+else
+	$post_id = 0;
+
 
 
 ?>
@@ -394,6 +399,7 @@ if ($user_to != 'new')
 		//alert( '<? echo $loggedUsername; ?>' );
 		var userLoggedIn = '<? echo $loggedUsername; ?>';
 		var profileUsername = '<? echo $username; ?>';
+		var pid = '<? echo $post_id; ?>'; 
 
 
 		$(document).ready(function() {
@@ -404,7 +410,8 @@ if ($user_to != 'new')
 			$.ajax({
 				url: "includes/handlers/ajax_load_profile_posts.php",
 				type: "POST",
-				data: "page=1&userLoggedIn=" + userLoggedIn + "&profileUsername=" + profileUsername,
+				data: "page=1&userLoggedIn=" + userLoggedIn + "&profileUsername=" + profileUsername
+				      + "&pid=" + pid,
 				cache: false,
 
 				success: function (data) {
@@ -430,7 +437,8 @@ if ($user_to != 'new')
 					var ajaxReq = $.ajax({
 						url: 'includes/handlers/ajax_load_profile_posts.php',
 						type: 'POST',
-						data: 'page=' + page + '&userLoggedIn=' + userLoggedIn + "&profileUsername=" + profileUsername,
+						data: 'page=' + page + '&userLoggedIn=' + userLoggedIn + "&profileUsername=" + profileUsername 
+						      + '&pid=' + pid,
 						cache: false,
 
 						success: function (response) {

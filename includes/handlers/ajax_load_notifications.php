@@ -30,7 +30,7 @@ foreach ($convos as $user) {
 <?
 				echo "
 			<div class='comvo_pic'>
-			  <a href='profile.php?profile_username=".$user_obj->getUsername()."&t=1'>
+			  <a href='post.php?id=".$user_obj->getUsername()."&t=1'>
 			     <img src='". $user_obj->getPic()."' style='top:0px; margin-left:5px; height:45px;'></a>
 			</div>
 			<div class='comvo_msg' style='top: 0px; 
