@@ -93,37 +93,36 @@ class Notification
 		$loggedInFullName = $this->user_obj->getFirstAndLastname();
 
 		$date_time = date("Y-m-d H:i:s");
+		$multi_user = false;
 
 		echo "<br>type = " . $type . "<br>";
 
 		switch ($type) {
 			case 'frien_request':
-				# code...
 			    $message = $loggedInFullName . " sent a friend request";
 				break;
 			case 'like':
-				# code...
 			    $message = $loggedInFullName . " liked your post";
 				break;
 			case 'message':
-				# code...
-			    $message = $loggedInFullName . " sent a friend request";
+			    $message = $loggedInFullName . " sent a message";
 				break;
 			case 'comment':
-				# code...
-			    $message = $loggedInFullName . " sent a friend request";
+			    $message = $loggedInFullName . " made a comment";
+			    $multi_user = true;
 				break;
-			case 'wall':
-				# code...
+			case 'profile_comment':
 			    $message = $loggedInFullName . " posted in your profile";
 				break;
-			case 'comment_non_owner':
-				# comment on a comment user commented on
-			    $message = $loggedInFullName . " commented on a post you commented on";
+			case 'wall':
+			    $message = $loggedInFullName . " added a new post";
+			    $multi_user = true;
 				break;
-
+			case 'comment_non_owner':
+			    $message = $loggedInFullName . " commented on a post you commented on";
+			    $multi_user = true;
+				break;
 			default:
-				# code...
 				break;
 		}
 
@@ -131,11 +130,28 @@ class Notification
 		$link = "post.php?id=" . $post_id;
 
 		// add notification to db
-		$qry_str = "INSERT INTO soc_notifications(id, nt_user_to, nt_user_from, nt_text, nt_link, 
-					nt_datetime, nt_opened, nt_viewed) 
-                    VALUES('', '$to', '$loggedInUser', '$message', '$link', '$date_time', 'no', 'no')";
-
-		$nt_sql = mysqli_query($this->conn, $qry_str);
+		if (!$multi_user)
+		{
+			$qry_str = "INSERT INTO soc_notifications(id, nt_user_to, nt_user_from, nt_text, nt_link, 
+						nt_datetime, nt_opened, nt_viewed) 
+	                    VALUES('', '$to', '$loggedInUser', '$message', '$link', '$date_time', 'no', 'no')";
+			$nt_sql = mysqli_query($this->conn, $qry_str);
+		}
+		else
+		{
+			// who should I notify to?
+			$notify_to = explode(",",$this->user_obj->getFriendsArray());
+			print_r($notify_to);
+			foreach ($notify_to as $user) {
+				if ($user != '')
+				{
+					$qry_str = "INSERT INTO soc_notifications(id, nt_user_to, nt_user_from, nt_text, nt_link, 
+								nt_datetime, nt_opened, nt_viewed) 
+			                    VALUES('', '$user', '$loggedInUser', '$message', '$link', '$date_time', 'no', 'no')";
+					$nt_sql = mysqli_query($this->conn, $qry_str);
+				}
+			}
+		}
 	}
 
 	public function getNotifications($user)
