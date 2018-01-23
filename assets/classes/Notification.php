@@ -121,6 +121,10 @@ class Notification
 				# comment on a comment user commented on
 			    $message = $loggedInFullName . " commented on a post you commented on";
 				break;
+			case 'post':
+				# new post on public feed
+				$message = $loggedInFullName . " added a post";
+				$friendsArrayFlag = true;
 
 			default:
 				# code...
