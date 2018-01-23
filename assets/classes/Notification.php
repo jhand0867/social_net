@@ -122,14 +122,10 @@ class Notification
 			    $message = $loggedInFullName . " commented on a post you commented on";
 			    $multi_user = true;
 				break;
-<<<<<<< HEAD
 			case 'post':
 				# new post on public feed
 				$message = $loggedInFullName . " added a post";
 				$friendsArrayFlag = true;
-
-=======
->>>>>>> f97c01a9cb2a05b8220a8136b568a6763d78e363
 			default:
 				break;
 		}
