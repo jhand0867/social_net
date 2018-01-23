@@ -41,12 +41,8 @@ class Post
 			$returned_id = mysqli_insert_id($this->conn);
 
 			// add notification 
-			if ( $user_to != 'none' )
-			{
-				$nt = new Notification($this->conn , $post_user );
-				$nt->createNotification($returned_id, $user_to, 'wall');
-			}
-
+			$nt = new Notification($this->conn , $post_user );
+			$nt->createNotification($returned_id, $user_to, 'wall');
 
 			// adjust user's posts count
 			$this->user_obj->increaseNumPost();
@@ -258,12 +254,15 @@ class Post
 		}
 	}
 
-	public function loadProfilePosts( $data , $limit )
+	public function loadProfilePosts( $data , $limit)
 	{
 		//print_r($data);
 		//echo "<br>";
+		// parse the REQUEST
 		$page = $data['page'];
 		$profileUsername = $data['profileUsername'];
+		$post_id = $data['pid'];
+		
 		$userLoggedIn = $this->user_obj->getUsername();
 		//echo "userLoggedIn = " . $userLoggedIn;
 
@@ -296,6 +295,15 @@ class Post
 				$posted_to = $row['post_user_to'];
 
 				//echo $userLoggedIn ." , " .$posted_to ." , " . $added_by ."<br>";
+
+				// is the current post_id = to the required post_id?
+
+				if ($id == $post_id)
+				{
+					// found the post
+					echo "GOT IT!!!";
+
+				}
 
 				// is it self posted? ... or do I need to get user name
 
@@ -489,6 +497,28 @@ class Post
 			 FROM soc_likes
 			 WHERE like_to_post_id = '$post_id' AND like_username = '$username'");
 
+	}
+
+	public function loadAPost($post_id)
+	{
+		// update open flag to yes
+		$qrystr = "UPDATE soc_posts 
+			 SET post_opened = 'yes' 
+			 WHERE id = '$post_id'";
+	
+		$post_update = mysqli_query( $this->conn , $qrystr );
+
+		// get the post and return the object
+		$qrystr = "SELECT * 
+			 FROM soc_posts
+			 WHERE id = '$post_id'";
+
+		$post_info = mysqli_query( $this->conn , $qrystr );
+
+		$row = mysqli_fetch_array($post_info);
+
+		return $row;
+	
 	}	
 }
 

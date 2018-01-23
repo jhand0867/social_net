@@ -28,7 +28,12 @@ foreach ($convos as $user) {
 	
 		<div class='comvo_pic'>
 		  <a href='profile.php?profile_username=".$user_obj->getUsername()."&t=1'>
+<<<<<<< HEAD
 		     <img src='". $user_obj->getPic()."' style='top:0px; margin-left:5px; height:45px; border-radius: 7px;'></a>
+=======
+		     <img src='". $user_obj->getPic()."' style='top: 0px; margin-left: 5px; height: 45px;
+    													border-radius: 5px;'></a>
+>>>>>>> f97c01a9cb2a05b8220a8136b568a6763d78e363
 		</div>
 		<div class='comvo_msg' style='top: 0px; 
 		                              float: right; 
