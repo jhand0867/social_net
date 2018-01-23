@@ -74,7 +74,8 @@ class Message
 			 OR (msg_user_from = '$loggedInUser' AND msg_user_to = '$user')) AND msg_deleted = 'no'
 			 ORDER BY msg_date DESC");
 		if (mysqli_num_rows($msg_qry1) > 0)
-			$messages = mysqli_fetch_all($msg_qry1, MYSQL_ASSOC);
+//			$messages = mysqli_fetch_all($msg_qry1, MYSQL_ASSOC);
+			$messages = mysqli_fetch_all($msg_qry1);
 		else
 			$messages = "none";
 
@@ -136,6 +137,9 @@ class Message
 	{
 		$msg = $this->getMessages($user);
 
+		//print_r($msg);
+
+
 		/*
 		{ ["id"]=> string(2) "77" 
 		  ["msg_user_to"]=> string(14) "maria_handschu" 
@@ -145,14 +149,14 @@ class Message
 		  ["msg_opened"]=> string(2) "no" 
 		  ["msg_viewed"]=> string(2) "no" 
 		  ["msg_deleted"]=> string(2) "no" 
-		 } 
-		*/
+		 } ddffff
+		*/ 
 
 		$last_msg = array();
 		$utils = new Utils();
 
-		$last_msg_str = $msg[0]['msg_body'];
-		$last_msg_time = $utils->postInterval($msg[0]['msg_date']);
+		$last_msg_str = $msg[0]['3'];
+		$last_msg_time = $utils->postInterval($msg[0]['4']);
 
 		$last_msg['text']=$last_msg_str;
 		$last_msg['time']=$last_msg_time;

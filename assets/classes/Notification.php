@@ -185,7 +185,7 @@ class Notification
 		//print_r($nt_qry1);
 
 		if (mysqli_num_rows($nt_qry1) > 0)
-			$messages = mysqli_fetch_all($nt_qry1, MYSQL_ASSOC);
+			$messages = mysqli_fetch_all($nt_qry1);
 		else
 			$messages = "none";
 
@@ -220,8 +220,8 @@ class Notification
 			$last_nt = array();
 			$utils = new Utils();
 
-			$last_nt_str = $nts[0]['nt_text'];
-			$last_nt_time = $utils->postInterval($nts[0]['nt_datetime']);
+			$last_nt_str = $nts[0]['3'];
+			$last_nt_time = $utils->postInterval($nts[0]['5']);
 
 			$last_nt['text']=$last_nt_str;
 			$last_nt['time']=$last_nt_time;

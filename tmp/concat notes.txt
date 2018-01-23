@@ -1,0 +1,11 @@
+UPDATE soc_users SET friends_array = CONCAT(',matthew_handschu,','lorena_handschu,')' WHERE username='maria_handschu'
+
+UPDATE soc_users SET friends_array = CONCAT(',matthew_handschu,joseph_handschu,','maria_handschu,')' WHERE username='lorena_handschu'
+
+UPDATE soc_friend_requests SET status = 'A' WHERE user_from='maria_handschu' AND user_to='lorena_handschu'
+
+
+
+UPDATE soc_users SET friends_array = CONCAT(',matthew_handschu,','lorena_handschu,') WHERE username='maria_handschu'
+UPDATE soc_users SET friends_array = CONCAT(',matthew_handschu,joseph_handschu,','maria_handschu,') WHERE username='lorena_handschu'
+UPDATE soc_friend_requests SET status = 'A' WHERE user_from='maria_handschu' AND user_to='lorena_handschu' 

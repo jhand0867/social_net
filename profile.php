@@ -309,32 +309,34 @@ if ($user_to != 'new')
 		<? 
 		foreach ($messages as $row) 
 		{
+			//print_r($row);
+
 			$height = 70;
-			$body_len = strlen($row['msg_body'])/25;
+			$body_len = strlen($row['3'])/25;
 			
 			if ($body_len > 1)
 			{
 				$height = (round($body_len) + 1) * 35; 
 			}
 			
-			if ($loggedUsername == $row['msg_user_to'])
+			if ($loggedUsername == $row['2'])
 			{
-				$user = new User($con , $row['msg_user_to']);
-				echo "<td style='width:10%'><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+				$user = new User($con , $row['2']);
+				echo "<td style='width:10%'><img class='pic_row' src='".$user->getPic($row['2'])."'></td>";
 				echo "<td class='msg_send' background='assets/images/backgrounds/callout_noline_left.png' 
 				style='background-repeat:no-repeat;background-size: 350px ". $height ."px; 
-				width: 80%; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
+				width: 80%; height: ". $height . "px;'>" . $row['3'] . "</td>"; 
 				echo "<td style='width:10%'></td>";
 				echo "<tr class='tr_empty'></tr>";
 			}
 			else
 			{
-				$user = new User($con , $row['msg_user_to']);
+				$user = new User($con , $row['2']);
 				echo "<td style='width:10%'></td>";
 				echo "<td class='msg_send' background='assets/images/backgrounds/callout_noline_right.png' 
 				style='background-repeat:no-repeat;background-size: 350px ". $height ."px; 
-				width: 80%px; height: ". $height . "px;'>" . $row['msg_body'] . "</td>"; 
-				echo "<td sytel='width:10%'><img class='pic_row' src='".$user->getPic($row['msg_user_to'])."'></td>";
+				width: 80%px; height: ". $height . "px;'>" . $row['3'] . "</td>"; 
+				echo "<td sytel='width:10%'><img class='pic_row' src='".$user->getPic($row['2'])."'></td>";
 				echo "<tr class='tr_empty'></tr>";
 			}
 		}
