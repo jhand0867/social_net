@@ -116,7 +116,7 @@ class Message
 		
 		while ($row = mysqli_fetch_array($msg_qry1))
 		{
-			$user_to_push = ($row['1'] != $loggedInUser) ? $row['1'] : $row['2'];
+			$user_to_push = ($row['msg_user_to'] != $loggedInUser) ? $row['msg_user_to'] : $row['msg_user_from'];
 
 			if (!in_array($user_to_push , $convos))
 				array_push($convos, $user_to_push);
