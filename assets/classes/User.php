@@ -139,7 +139,7 @@ class User
 			 WHERE user_to = '$user_logged_in' AND status='P'" );
 		if (mysqli_num_rows($user_query) > 0 )
 		{
-			$friend_requests = mysqli_fetch_array($user_query , MYSQL_ASSOC);
+			$friend_requests = mysqli_fetch_array($user_query);
 		}
 		else
 		{

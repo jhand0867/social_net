@@ -127,7 +127,7 @@ class Session
 		//ChromePhp::log(mysqli_num_rows($log_sessions));
 		if (mysqli_num_rows($log_sessions) > 0)
 		{
-			$rows = mysqli_fetch_all($log_sessions, MYSQL_ASSOC);
+			$rows = mysqli_fetch_all($log_sessions);
 		}
 		//ChromePhp::log($rows);
 		return $rows;
