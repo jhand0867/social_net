@@ -53,6 +53,7 @@ else
 }
 if ($user_to != 'new')
 	$user_to_obj = new User ($con , $user_to);
+
 if (isset($_POST['post_msg']))
 {
 	if (isset($_POST['msg_body']))
@@ -270,7 +271,7 @@ else
 
 if ($user_to != 'new')
 
-	echo "<h4>You and <a href='$user_to'>" .$user_to_obj->getFirstAndLastName() ."</a></h4><hr><br>";
+    echo "<h4>You and <a href='".$profile_user->getUsername()."'>" .$profile_user->getFirstAndLastName() ."</a></h4><hr><br>";
 ?>
 
 <div class="post_message">
@@ -298,7 +299,7 @@ if ($user_to != 'new')
 </div>
 <?
 	echo "<div class='loaded_messages'>";
-	$messages = $message_obj->getMessages($user_to);
+	$messages = $message_obj->getMessages($username);
 	
 	if ($messages != "none")
 	{

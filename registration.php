@@ -109,6 +109,7 @@ require 'includes/form_handlers/login_handler.php';
                         <option value="ENG">Preferred Language</option>
                         <option value="SPA">Spanish</option>
                         <option value="ENG">English</option></select>
+
                     <br>
 
                     <div class="sel_gender">
