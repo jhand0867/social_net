@@ -63,6 +63,45 @@ if ($not_unread > 0)
 		<div class="logo">
 			<a href="index.php">Social Net</a>
 		</div>
+
+
+		<div class="search">
+
+<!--			<form method="GET" action="search.php" name="search_form"> -->
+			<form method="GET" action="" name="search_form">
+				
+				<input type="text" name="q" 
+					   onkeyup="getLiveSearchUsers(this.value,'<?php echo $loggedUsername ?>');"
+					   placeholder="Search..."
+					   autocomplete="off"
+					   id="search_text_input">
+
+				
+				
+				<div class="search_button_holder">
+					<img src="assets/icons/search.png">
+				</div>
+				
+				<div class="search_button_holder">
+					<img id="google_search" src="assets/icons/google.png" onclick="searchGoogle();">
+				</div>
+				
+
+
+			</form>
+
+			<div class="search_result">
+				
+			</div>
+			
+			<div class="search_result_footer_empty">
+				
+			</div>
+		
+
+		</div>
+		
+
 		<nav>
 			<a href="<? echo "profile.php?profile_username=".$user['username']."&t=0"; ?>">
 				<? echo $user['first_name'] ?>
