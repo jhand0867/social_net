@@ -1,6 +1,7 @@
 <?php 
 // User.ph
 // Logic
+//require_once('ChromePhp.php');
 
 class User
 {
@@ -299,6 +300,70 @@ class User
 		}
 
 		return $mutual_friends_usernames;
+	}
+
+	public function queryUserTable($queryValues)
+	{
+		// what's in the query?
+
+		 ChromePhp::log("in queryUserTable!!!");
+
+		$names = explode(" ", $queryValues);
+
+
+		// if it contains "_" underscore
+		// look for usernames
+
+		if (strpos('_', $queryValues) !== false)
+		{
+			$user_query = "SELECT * 
+						   FROM soc_users
+						   WHERE username LIKE $queryValues% 
+						   AND user_closed='no' LIMIT 8" ; 
+		}
+
+		// if it's 2 words
+		// look for first and lastname respectively
+		
+		else if (count($names) == 2 )
+		{
+			$user_query = "SELECT * 
+						   FROM soc_users
+						   WHERE ( first_name LIKE $names[0]% AND last_name LIKE $names[1]% ) 
+						   AND user_closed='no' LIMIT 8" ;
+		}
+		// if it's 1 word
+		// look for first and lastname 
+		else if (count($names) == 1 )
+		{
+			$user_query = "SELECT * 
+						   FROM soc_users
+						   WHERE ( first_name LIKE $names[0]% OR last_name LIKE $names[0]% ) 
+						   AND user_closed='no' LIMIT 8" ;
+
+		}
+
+		$user_tbl_qry = mysqli_query( $this->conn , $user_query );
+
+
+		/*while ($row = mysqli_fetch_array($user_tbl_qry))
+		{
+			$user_to_push = 
+			($row['nt_user_to'] != $loggedInUser) ? $row['nt_user_to'] : $row['nt_user_from'];
+
+			if (!in_array($user_to_push , $convos))
+				array_push($convos, $user_to_push);
+		}
+
+		return $convos;*/
+
+		return $user_tbl_qry;
+
+
+
+
+
+
 	}
 
 

@@ -17,7 +17,7 @@ $lang = $U->selectLanguage($con , $user['username']);
 
 //print_r($_SESSION);
 
-echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    session_id " . session_id();
+//echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    session_id " . session_id();
 
 $_SESSION['session_id'] = $sessionid;
 

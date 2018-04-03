@@ -13,7 +13,7 @@ class Session
 
 	public function __construct($conn)
 	{
-		echo "Session Started !!";
+		//echo "Session Started !!";
 		$this->session_id = $_SESSION['session_id'];
 		$this->user = $_SESSION['username'];
 		$this->connection = $conn;
@@ -30,7 +30,7 @@ class Session
 
 	public function __destruct()
 	{
-		echo "Session Out !!";
+		//echo "Session Out !!";
 		$this->end_timestamp = date("Y-m-d H:i:s:u");
 		$this->updateSessionLog($this->connection, "SESS:", "User out " );
 

@@ -17,7 +17,7 @@ body{
 .top_bar{
 	width: 100%;
 	min-width: 1050px;
-	height: 40px;
+	height: 50px;
 	background-color: #0daae6;
 	border-bottom: 0.25em solid #2980b4;
 	margin: 0 0 10px 0;
@@ -84,6 +84,7 @@ nav a:hover {
 	width: 250px;
 	float: left;
 	margin-bottom: 20px;
+	margin-top: 8px;
 	font-size: 15;
 }
 
@@ -104,6 +105,7 @@ nav a:hover {
     min-height: 200px;
     float: right;
     z-index: -1;
+    margin-top: 8px;
 }
 
 .post_form{
@@ -495,7 +497,7 @@ td {
 
 .results_display {
     padding: 5px 5px 0 4px;
-    height: 60px;
+    height: 80px;
     border-bottom: 1px solid #d3d3d3;
 }
 
@@ -554,4 +556,66 @@ td {
     vertical-align: baseline;
     left: 11px;
 }
+
+.search {
+	margin: 8px 0px 0px 15%;
+}
+
+.search #search_text_input {
+	height: 28px;
+	border: none; 
+	float: left;
+	font-size: 15;
+
+}
+
+.search_button_holder {
+	float: right;
+	cursor: pointer;
+	background: #f1f1f1;
+	border:	thin solid #f1f1f1;
+	border-top-right-radius: 5px;
+	
+}
+
+.search_button_holder img {
+	height: 26px;
+	float: right;
+	padding-right: 5px 0px 2px 0px;
+
+
+}
+
+.search_result {
+	border: 1px solid #dadada;
+	background-color: #fff;
+	border-bottom: none;
+	margin-top: 28px;
+	color: #007bff;
+
+}
+
+.search_result_footer {
+	border: 1px solid #dadada;
+	padding: 7px 0px 4px 0px;
+	background-color: #0faae7;
+	border-top: none;
+	margin-top: 0px;
+	text-align: center;
+	font-size: 13px;
+
+}
+
+.search_result_footer a {
+	color: #fff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+/*.googlesearch_button_image {
+    float: inherit;
+    margin-left: 162px;
+    margin-top: -26px;
+    height: 26px;
+}*/
 
